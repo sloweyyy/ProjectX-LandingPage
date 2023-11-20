@@ -7,15 +7,215 @@
             <img src="images/logo-light.png" alt="" class="logo-light" height="28" />
         </a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav ms-auto navbar-center" id="navbar-navlist">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link active">Home</a>
-                </li>
-            </ul>
-            <a href="" class="btn btn-sm rounded-pill nav-btn ms-lg-3">Buy Now</a>
+
+            <a href=" " class="btn btn-sm rounded-pill nav-btn ms-lg-3">Buy Now</a>
         </div>
     </div>
     <!-- end container -->
 </nav>
 
-<style></style>
+<style>
+    .nav-item .nav-link {
+        display: inline-block;
+        color: #29344a;
+        text-decoration: none;
+    }
+    
+    .navbar {
+        padding: 14px 0px;
+        width: 100%;
+        border-radius: 0px;
+        z-index: 999;
+        margin-bottom: 0px;
+        transition: all 0.5s ease-in-out;
+        background-color: transparent;
+    }
+    
+    .navbar .logo .logo-dark {
+        display: none;
+    }
+    
+    .navbar .logo .logo-light {
+        display: inline-block;
+    }
+    
+    .navbar .navbar-nav li a {
+        line-height: 26px;
+        color: rgba(239, 241, 245, 0.7);
+        font-size: 16px;
+        transition: all 0.3s;
+        background-color: transparent !important;
+        padding: 6px 0;
+        margin: 0 15px;
+        font-family: "Assistant", sans-serif;
+        font-weight: 600;
+    }
+    
+    .navbar .navbar-nav li .nav-link {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    
+    .navbar .navbar-nav li .nav-link.active,
+    .navbar .navbar-nav li .nav-link:hover,
+    .navbar .navbar-nav li .nav-link:focus {
+        color: #fff !important;
+    }
+    
+    .navbar .navbar-toggles {
+        padding: 0.25rem 0.75rem;
+        font-size: 18px;
+        background: 0 0;
+        border: 1px solid transparent;
+        color: #fff;
+        outline: 0;
+    }
+    
+    .navbar .nav-btn {
+        background-color: #fbfbfb;
+        color: #2753ff;
+    }
+    
+    .navbar-toggler {
+        padding: 0;
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+    
+    .nav .open>a,
+    .nav .open>a:focus,
+    .nav .open>a:hover {
+        background-color: transparent;
+        border-color: #2753ff;
+    }
+    
+    .menu-toggle {
+        padding: 4.5px 10px !important;
+    }
+    
+    .menu-toggle span {
+        line-height: 27px;
+    }
+    /*---NAVBAR STICKY--*/
+    
+    .nav-sticky.navbar {
+        margin-top: 0px;
+        background-color: #fff;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.06);
+        color: #000 !important;
+    }
+    
+    .nav-sticky.navbar .navbar-nav {
+        margin-top: 0px;
+    }
+    
+    .nav-sticky.navbar .navbar-nav li .nav-link {
+        color: #6c757d !important;
+    }
+    
+    .nav-sticky.navbar .navbar-nav li .nav-link.active,
+    .nav-sticky.navbar .navbar-nav li .nav-link:hover,
+    .nav-sticky.navbar .navbar-nav li .nav-link:focus {
+        color: #2753ff !important;
+    }
+    
+    .nav-sticky.navbar .nav-btn {
+        background-color: #2753ff;
+        color: #fff;
+    }
+    
+    .nav-sticky .logo .logo-dark {
+        display: inline-block !important;
+    }
+    
+    .nav-sticky .logo .logo-light {
+        display: none !important;
+    }
+    
+    .navbar-toggler {
+        color: #29344a !important;
+        border: none !important;
+    }
+    
+    .navbar-toggler:focus {
+        outline: none;
+    }
+    
+    .navbar-light .logo .logo-dark {
+        display: inline-block;
+    }
+    
+    .navbar-light .logo .logo-light {
+        display: none;
+    }
+    
+    .navbar-light .navbar-nav li a {
+        color: #6c757d !important;
+    }
+    
+    .navbar-light .navbar-nav li .nav-link {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    
+    .navbar-light .navbar-nav li .nav-link.active,
+    .navbar-light .navbar-nav li .nav-link:hover,
+    .navbar-light .navbar-nav li .nav-link:focus {
+        color: #2753ff !important;
+    }
+    
+    .navbar-light .nav-btn {
+        background-color: #2753ff;
+        color: #fff;
+    }
+    
+    @media (min-width: 200px) and (max-width: 991px) {
+        .navbar {
+            margin-top: 0px;
+            background-color: #fff !important;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            color: #fff !important;
+        }
+        .navbar .navbar-nav {
+            margin-top: 0px;
+        }
+        .navbar .navbar-nav li .nav-link {
+            padding: 6px 0;
+            transition: all 0.4s;
+            color: #6c757d !important;
+            margin: 0px;
+            display: block;
+        }
+        .navbar .navbar-nav li .nav-link.active,
+        .navbar .navbar-nav li .nav-link:hover,
+        .navbar .navbar-nav li .nav-link:focus {
+            color: #2753ff !important;
+        }
+        .navbar .navbar-nav li.active a {
+            border-color: transparent;
+        }
+        .navbar>.container {
+            width: 90%;
+        }
+        .navbar .logo .logo-dark {
+            display: inline-block !important;
+        }
+        .navbar .logo .logo-light {
+            display: none !important;
+        }
+        .navbar.navbar-light .navbar-nav li .nav-link.active,
+        .navbar.navbar-light .navbar-nav li .nav-link:hover,
+        .navbar.navbar-light .navbar-nav li .nav-link:focus {
+            color: #29344a !important;
+        }
+        .navbar .nav-btn {
+            background-color: #2753ff;
+            color: #fff;
+        }
+        .navbar-collapse {
+            padding: 0;
+        }
+    }
+</style>
