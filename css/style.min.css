@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 a {
     text-decoration: none !important;
     outline: none;
@@ -11,7 +11,7 @@ a:hover {
 }
 
 body {
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #29344a;
     background: #fff;
     font-size: 15px
