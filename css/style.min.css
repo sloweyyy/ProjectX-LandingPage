@@ -1363,7 +1363,8 @@ h6 {
 }
 
 .font-size-19 {
-    font-size: 19px
+    font-size: 19px;
+    font-family: Roboto;
 }
 
 .font-size-20 {

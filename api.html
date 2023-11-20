@@ -6,38 +6,120 @@
     <meta charset="utf-8" />
     <title>Hướng Dẫn Lấy API Key - ZaloAI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="images/Logo-UIT.ico" />
+    <link rel="shortcut icon" href="images/favicon.ico" />
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
     <link href="css/style.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.google.com/specimen/Roboto" rel="stylesheet" />
     <!-- Các liên kết CSS khác từ mẫu gốc -->
+
+    <style>
+        /* Các đoạn mã CSS khác từ mẫu gốc */
+        /* Add your CSS styles here */
+        
+        .Guide {
+            font-size: large;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        
+        .text-center {
+            font-size: 40px;
+            font-weight: bold;
+            font-family: /* https://fonts.google.com/specimen/Roboto */
+            Roboto;
+        }
+        
+        .navbar1 {
+            background-color: #29344a;
+            padding: 10px 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100px;
+            /* Độ rộng cố định của navbar */
+        }
+        
+        .nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-menu li {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 18px;
+            margin-bottom: 8px;
+            transition: 0.3s;
+            font-size: 15px;
+            border-radius: 50px;
+            height: 56px;
+            width: 100%;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        
+        .nav-menu a i {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        
+        .nav-menu a:hover {
+            background: #0563bb;
+        }
+    </style>
 </head>
 
 <body>
+    <div id="navbar-placeholder"></div>
+
     <!-- Navbar - Sử dụng lại từ trang chính -->
-    <!-- ... Navbar code here ... -->
+    <nav class="navbar1">
+        <ul class="nav-menu">
+            <!--- blank line-->
+            <li><a href="#step-0"><i class="fa fa-chevron-right"></i></a></li>
+            <li><a href="#step-1"><i class="fa fa-chevron-right"></i> Bước 1</a></li>
+            <li><a href="#step-2"><i class="fa fa-chevron-right"></i> Bước 2</a></li>
+            <li><a href="#step-3"><i class="fa fa-chevron-right"></i> Bước 3</a></li>
+            <li><a href="#step-4"><i class="fa fa-chevron-right"></i> Bước 4</a></li>
+        </ul>
+    </nav>
 
     <!-- Main Content -->
     <section class="api-instructions">
         <div class="container">
+            <!-- blank line-->
+            <h1 class="text-center my-4"></h1>
             <h1 class="text-center my-4">Hướng Dẫn Lấy API Key Từ ZaloAI</h1>
+
             <div class="steps">
                 <ol>
-                    <li>
-                        Truy cập: <a href="https://zalo.ai/" target="_blank">https://zalo.ai/</a>
-                        <img src="https://i.imgur.com/q0qKgNr.png" style="width: 100%; height: auto;" alt="Hướng dẫn 1">
+                    <li class="Guide" id="step-1">
+
+                        Truy cập: <a href="https://zalo.ai/" target="_blank">https://zalo.ai/
+                            <img src="images/getapi/q0qKgNr.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 1">
                     </li>
-                    <li>
+                    <li class="Guide" id="step-2">
                         Đăng nhập bằng tài khoản Zalo của bạn.
-                        <img src="https://i.imgur.com/RiWXUSR.png" style="width: 100%; height: auto;" alt="Hướng dẫn 2">
+                        <img src="images/getapi/RiWXUSR.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 2">
                     </li>
-                    <li>
+                    <li class="Guide" id="step-3">
                         Truy cập: <a href="https://zalo.ai/account/manage-keys" target="_blank">https://zalo.ai/account/manage-keys</a> và chọn 'Create new key'.
-                        <img src="https://i.imgur.com/oVmfDZW.png" style="width: 100%; height: auto;" alt="Hướng dẫn 3">
+                        <img src="images/getapi/oVmfDZW.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 3">
                     </li>
-                    <li>
+                    <li class="Guide" id="step-4">
+
                         Đặt tên gợi nhớ và chọn Text-to-speech.
-                        <img src="https://i.imgur.com/iOGV9md.png" style="width: 100%; height: auto;" alt="Hướng dẫn 4">
+                        <img src="images/getapi/4Yfhs3L.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 4">
                     </li>
 
                     <!-- Thêm các bước cụ thể khác từ tệp PDF -->
@@ -47,14 +129,24 @@
     </section>
 
     <!-- Footer - Sử dụng lại từ trang chính -->
-    <!-- ... Footer code here ... -->
+    <!-- ... Footer code here -->
 
     <!-- Javascript - Sử dụng lại từ trang chính -->
-    <script src="js/bootstrap.bundle.min.js "></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
     <!-- feather-icons js -->
-    <script src="https://unpkg.com/feather-icons "></script>
+    <script src="https://unpkg.com/feather-icons"></script>
     <!-- App Js -->
-    <script src="js/app.js "></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Sử dụng JavaScript để nhúng navbar từ file navbar.html
+        const navbarPlaceholder = document.getElementById('navbar-placeholder');
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                navbarPlaceholder.innerHTML = data;
+            });
+    </script>
+
 </body>
 
 </html>
