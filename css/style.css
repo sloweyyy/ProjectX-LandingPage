@@ -2043,5 +2043,12 @@ h6 {
     margin-left: 5px;
 }
 
+.img-resize {
+    width: 100px;
+    /* or any size you want */
+    height: auto;
+    /* maintains aspect ratio */
+}
+
 
 /*# sourceMappingURL=style.css.map */
