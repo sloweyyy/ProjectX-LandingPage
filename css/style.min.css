@@ -144,7 +144,7 @@ h6 {
 .nav-item .nav-link {
     display: inline-block;
     color: #29344a;
-    text-decoration: none
+    text-decoration: none   
 }
 
 .navbar {
@@ -179,7 +179,7 @@ h6 {
 
 .navbar .navbar-nav li .nav-link {
     padding-right: 0px;
-    padding-left: 0px
+    padding-left: 0px;
 }
 
 .navbar .navbar-nav li .nav-link.active,
@@ -187,6 +187,7 @@ h6 {
 .navbar .navbar-nav li .nav-link:focus {
     color: #fff !important
 }
+
 
 .navbar .navbar-toggles {
     padding: 0.25rem 0.75rem;
@@ -410,12 +411,19 @@ h6 {
 }
 
 .btn.btn-soft-primary:hover,
+
+.btn.btn-soft-primary.focus {
+    box-shadow: 0 3px 12px rgba(39, 83, 255, 0.2);
+    transform: translateY(-4px);
+}
+
 .btn.btn-soft-primary:focus,
-.btn.btn-soft-primary.focus,
 .btn.btn-soft-primary:active,
 .btn.btn-soft-primary.active {
     box-shadow: 0 3px 12px rgba(39, 83, 255, 0.2);
-    transform: translateY(-4px)
+    transform: translateY(-4px);
+    color: #e9edff ;
+    background-color: #2753ff !important;
 }
 
 .btn.btn-outline-primary {
