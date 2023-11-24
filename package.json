@@ -1,0 +1,17 @@
+{
+  "name": "projectx-landingpage",
+  "version": "1.0.0",
+  "description": "<div align=\"center\">     <a href=\"https://www.uit.edu.vn/\" title=\"Trường Đại học Công nghệ Thông tin\" target=\"_blank\">         <img src=\"https://www.uit.edu.vn/sites/vi/files/banner_uit_15.png\">     </a> </div>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.1"
+  }
+}

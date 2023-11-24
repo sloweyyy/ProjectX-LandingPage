@@ -62,7 +62,7 @@ function validateForm() {
     }
 
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("simple-msg").innerHTML = this.responseText;
             document.forms["myForm"]["name"].value = "";
@@ -80,7 +80,7 @@ function validateForm() {
 function fadeIn() {
     var fade = document.getElementById("error-msg");
     var opacity = 0;
-    var intervalID = setInterval(function () {
+    var intervalID = setInterval(function() {
         if (opacity < 1) {
             opacity = opacity + 0.5
             fade.style.opacity = opacity;
@@ -97,10 +97,9 @@ feather.replace();
 
 // Preloader
 
-window.onload = function loader() { 
+window.onload = function loader() {
     setTimeout(() => {
         document.getElementById('preloader').style.visibility = 'hidden';
         document.getElementById('preloader').style.opacity = '0';
     }, 350);
-} 
-
+}
