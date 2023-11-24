@@ -1,3 +1,6 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "liveServer.settings.multiRootWorkspaceName": "ProjectX-LandingPage",
+    "liveServer.settings.host": "localhost",
+    "liveServer.settings.ChromeDebuggingAttachment": false
 }
