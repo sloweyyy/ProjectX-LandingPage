@@ -46,24 +46,25 @@ app.use(cors());
 app.use(express.static("public"));
 
 // Define a route for handling the registration form submission
+// Define a route for handling the registration form submission
 app.post("/sign-up", async(req, res) => {
     try {
         const { username, apikey, password } = req.body;
 
         // Check for missing fields
         if (!username || !apikey || !password) {
-            return res.status(400).send("All fields are required");
+            return res.status(400).json({ error: "All fields are required" });
         }
 
         // Check if user already exists
         const existingUser = await User.findOne({ username });
         if (existingUser) {
-            return res.status(409).send("User already exists");
+            return res.status(409).json({ error: "User already exists" });
         }
 
         // Validate API key
         if (!(await isValidApiKey(apikey))) {
-            return res.status(401).send("Invalid API key");
+            return res.status(401).json({ error: "Invalid API key" });
         }
 
         // Create a new user document
@@ -72,12 +73,13 @@ app.post("/sign-up", async(req, res) => {
         // Save the user to the database
         await newUser.save();
 
-        res.send("Registration successful");
+        res.json({ message: "Registration successful" });
     } catch (error) {
         console.error("Registration error:", error);
-        res.status(500).send("Registration failed");
+        res.status(500).json({ error: "Registration failed" });
     }
 });
+
 
 // Start the server
 app.listen(port, () => {
