@@ -71,10 +71,22 @@
                                     </div>
                                 </form>
                                 <div id="alert-container"></div>
-                                <div id="termcondition" style="display:none;">
-                                    <div class ="col-lg-5 bg-white shadow" style="position: absolute;  top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                                        <p>Mai soạn điều khoản và điều kiện nha:)))</p>
-                                        <button id="close-btn">Đóng</button>
+                                <div id="termcondition">
+                                    <div class="popup-container">
+                                        <div class="close-button">X</div>
+                                        <h2>Điều khoản và điều kiện</h2>
+                                        <h5 class="first">2. Sử Dụng Hợp Pháp</h5>
+                                        <p>Người dùng cam kết sử dụng ứng dụng chỉ cho mục đích hợp pháp và tuân thủ các quy định pháp luật.</p>
+                                        <h5>3. Bảo Mật và Dữ Liệu Cá Nhân</h5>
+                                        <p>Ứng dụng tôn trọng quyền riêng tư của người dùng và bảo vệ dữ liệu cá nhân.</p>
+                                        <h5>4. Giới Hạn Trách Nhiệm</h5>
+                                        <p>Nhóm ProjectX không chịu trách nhiệm cho bất kỳ thiệt hại nào liên quan đến việc sử dụng ứng dụng.</p>
+                                        <h5>5. Thay Đổi Điều Khoản</h5>
+                                        <p>Nhóm ProjectX có quyền cập nhật điều khoản này mà không cần thông báo trước.</p>
+                                        <h5>6. Bản Quyền</h5>
+                                        <p>Nội dung trong ứng dụng là tài sản của nhóm ProjectX và được bảo vệ theo luật sở hữu trí tuệ.</p>
+                                        <h5>7. Quyền Chấm Dứt</h5>
+                                        <p>Nhóm ProjectX có quyền chấm dứt quyền truy cập nếu người dùng vi phạm các điều khoản này.</p>
                                     </div>
                                 </div>
                             </div>
@@ -105,11 +117,13 @@
             document.body.classList.add("termcondition-open");
         };
         document.getElementById("close-btn").addEventListener("click", hideTermsAndConditions);
+
         function hideTermsAndConditions(event) {
             event.stopPropagation();
             var termconditionBackground = document.getElementById("termcondition");
             termconditionBackground.style.display = "none";
-            document.body.classList.remove("termcondition-open");}
+            document.body.classList.remove("termcondition-open");
+        }
     </script>
     <!-- App Js -->
     <script src="js/app.js"></script>
