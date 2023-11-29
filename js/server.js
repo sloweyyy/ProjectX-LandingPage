@@ -7,7 +7,7 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5500;
 
-// MongoDB connection setup (replace 'your_mongodb_uri' and 'yourdbname')
+
 mongoose.connect(
     "mongodb+srv://slowey:tlvptlvp@projectx.3vv2dfv.mongodb.net/ProjectX", {
         useNewUrlParser: true,
@@ -15,14 +15,6 @@ mongoose.connect(
     }
 );
 
-// Create a schema and model for the Users table
-/**
- * Represents the user schema.
- * @typedef {Object} UserSchema
- * @property {string} username - The username of the user.
- * @property {string} apikey - The API key of the user.
- * @property {string} password - The password of the user.
- */
 const UserSchema = new mongoose.Schema({
     username: String,
     apikey: String,
@@ -30,10 +22,8 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.pre("save", async function(next) {
-    // Only run this function if password was actually modified
     if (!this.isModified("password")) return next();
 
-    // Hash the password with cost of 12
     this.password = await bcrypt.hash(this.password, 12);
 
     next();
@@ -113,3 +103,10 @@ async function isValidApiKey(key) {
         throw error;
     }
 }
+
+const corsOptions = {
+    origin: 'https://slowey-project-x.vercel.app/', // Thay thế bằng domain của bạn
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
