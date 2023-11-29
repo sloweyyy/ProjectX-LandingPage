@@ -29,8 +29,7 @@
         </div>
     </div>
 
-    <section class="bg-account-pages vh-100 d-flex align-items-center bg-center position-relative" style="background-image: url(images/auth-bg.png);">
-
+    <section class="bg-account-pages vh-100 d-flex align-items-center bg-center position-relative" style="background-image: url(images/auth-bg.png)">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-5">
@@ -40,7 +39,9 @@
                                 <a href="index.html">
                                     <img src="images/logo-dark.png" alt="" class="logo-dark" height="30" />
                                 </a>
-                                <p class="text-muted mt-2">Sign up for a new Account</p>
+                                <p class="text-muted mt-2">
+                                    Sign up for a new Account
+                                </p>
                             </div>
                             <div class="p-3">
                                 <form novalidate="" action="https://projectx-landingpage-production.up.railway.app/sign-up" method="post" class="av-invalid">
@@ -57,23 +58,24 @@
                                         <input name="password" required="" placeholder="Enter password" id="password" type="password" class="form-control" value="" />
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="termcondition-Check">
+                                        <input class="form-check-input" type="checkbox" value="" id="termcondition-Check" />
                                         <label class="form-check-label" for="termcondition-Check">
-                                            I accept <a href="javascript: void(0);"
-                                                class="text-dark font-weight-semibold">Terms and Conditions</a>
+                                            I accept
+                                            <a href="javascript: void(0);" class="text-dark font-weight-semibold">Terms
+                                                and Conditions</a>
                                         </label>
                                     </div>
                                     <div class="d-grid mt-3">
-                                        <button id="signup-submit-btn" type="submit" class="btn-primary btn btn-none">Register</button>
+                                        <button id="signup-submit-btn" type="submit" class="btn-primary btn btn-none">
+                                            Register
+                                        </button>
                                     </div>
                                 </form>
+                                <div id="alert-container"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center mt-4">
-                        <!-- <p>Already have an account ? <a href="login.html" class="font-weight-semibold text-primary">
-                                Signin </a> </p> -->
-                    </div>
+                    <div class="text-center mt-4"></div>
                 </div>
                 <!-- end col -->
             </div>
@@ -83,22 +85,16 @@
     </section>
     <!-- end section -->
 
-
-
     <!-- javascript -->
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/smooth-scroll.polyfills.min.js"></script>
-    <script>
-    </script>
+
     <script src="https://unpkg.com/feather-icons"></script>
-    <form novalidate="" action="/sign-up" method="post" class="av-invalid">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <!-- App Js -->
-        <script src="js/app.js"></script>
-
-
+    <!-- App Js -->
+    <script src="js/app.js"></script>
 </body>
 
 </html>
