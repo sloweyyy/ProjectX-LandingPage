@@ -61,8 +61,7 @@
                                         <input class="form-check-input" type="checkbox" value="" id="termcondition-Check" />
                                         <label class="form-check-label" for="termcondition-Check">
                                             I accept
-                                            <a href="javascript: void(0);" class="text-dark font-weight-semibold">Terms
-                                                and Conditions</a>
+                                            <a href="#" class="text-dark font-weight-semibold" id="termcondition-tab" onclick="showTermsAndConditions()">Terms and Conditions</a>
                                         </label>
                                     </div>
                                     <div class="d-grid mt-3">
@@ -72,6 +71,12 @@
                                     </div>
                                 </form>
                                 <div id="alert-container"></div>
+                                <div id="termcondition" style="display:none;">
+                                    <div class ="col-lg-5 bg-white shadow" style="position: absolute;  top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                        <p>Mai soạn điều khoản và điều kiện nha:)))</p>
+                                        <button id="close-btn">Đóng</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -93,6 +98,19 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <script>
+        function showTermsAndConditions() {
+            var termconditionBackground = document.getElementById("termcondition");
+            termconditionBackground.style.display = "block";
+            document.body.classList.add("termcondition-open");
+        };
+        document.getElementById("close-btn").addEventListener("click", hideTermsAndConditions);
+        function hideTermsAndConditions(event) {
+            event.stopPropagation();
+            var termconditionBackground = document.getElementById("termcondition");
+            termconditionBackground.style.display = "none";
+            document.body.classList.remove("termcondition-open");}
+    </script>
     <!-- App Js -->
     <script src="js/app.js"></script>
 </body>
