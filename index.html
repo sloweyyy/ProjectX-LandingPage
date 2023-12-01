@@ -83,7 +83,7 @@
                     <a href="javascript: void(0);" class="btn btn-lg btn-light rounded-pill me-2">Install</a>
                     <div class="d-inline-block" data-bs-toggle="modal" data-bs-target="#watchvideomodal">
                         <a href="javascript: void(0);" class="video-play-icon text-white">
-                            <span class="play-icon-circle me-2"><i class="icon-sm icon" data-feather="play"></i></span>
+                            <span class="play-icon-circle me-2"><i class="icon-sm" data-feather="play"></i></span>
                             <span class="">Watch Demo!</span>
                         </a>
                     </div>
@@ -269,6 +269,7 @@
                                 <div class="col-lg-6">
                                     <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
                                         <div class="card-body px-4 py-5">
+                                            <span class="badge badge-primary pricing-badge shadow-lg">Phổ Biến Nhất</span>
                                             <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
                                                 <img src="images/pricing/1.png" alt="" class="img-fluid d-block mx-auto" />
                                             </div>
@@ -306,8 +307,6 @@
                                 <div class="col-lg-4">
                                     <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
                                         <div class="card-body px-4 py-5">
-                                            <span class="badge badge-primary pricing-badge shadow-lg">Phổ Biến Nhất</span>
-
                                             <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
                                                 <img src="images/pricing/3.png" alt="" class="img-fluid d-block mx-auto" />
                                             </div>
@@ -331,6 +330,7 @@
                                 <div class="col-lg-6">
                                     <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
                                         <div class="card-body px-4 py-5">
+                                            <span class="badge badge-primary pricing-badge shadow-lg">Phổ Biến Nhất</span>
                                             <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
                                                 <img src="images/pricing/1.png" alt="" class="img-fluid d-block mx-auto" />
                                             </div>
@@ -367,7 +367,6 @@
                                 <div class="col-lg-4">
                                     <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
                                         <div class="card-body px-4 py-5">
-                                            <span class="badge badge-primary pricing-badge shadow-lg">Phổ Biến Nhất</span>
                                             <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
                                                 <img src="images/pricing/3.png" alt="" class="img-fluid d-block mx-auto" />
                                             </div>
@@ -505,14 +504,14 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-4">
-                                        <label for="name" class="text-muted form-label">Họ tên</label>
-                                        <input name="name" id="name" type="text" class="form-control" placeholder="Họ và tên *">
+                                        <label for="name" class="text-muted form-label">Họ tên <span style="color: red;">*</span></label>
+                                        <input name="name" id="name" type="text" class="form-control" placeholder="Họ và tên">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-4">
-                                        <label for="email" class="text-muted form-label">Email</label>
-                                        <input name="email" id="email" type="email" class="form-control" placeholder="Email *">
+                                        <label for="email" class="text-muted form-label">Email <span style="color: red;">*</span></label>
+                                        <input name="email" id="email" type="email" class="form-control" placeholder="Email">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -525,9 +524,7 @@
                                         <label for="comments" class="text-muted form-label">Lời nhắn</label>
                                         <textarea name="comments" id="comments" rows="4" class="form-control" placeholder="Lời nhắn..."></textarea>
                                     </div>
-
                                     <button type="submit" id="submit" name="send" class="btn btn-primary">Gửi tin nhắn</button>
-
                                 </div>
                             </div>
                         </form>
