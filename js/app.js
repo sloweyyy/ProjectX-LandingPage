@@ -113,20 +113,7 @@ window.onload = function loader() {
     }, 350);
 };
 
-const handleSignUp = async() => {
-    try {
-        await axios.post(endpoint + "/sign-up", data, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
 
-        alert("Thanh cong ");
-    } catch (error) {
-        console.log(error);
-        alert("Có lỗi API");
-    }
-};
 const signUpButton = document.getElementById("signup-submit-btn");
 signUpButton.addEventListener("click", handleSignUp);
 
