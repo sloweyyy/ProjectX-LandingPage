@@ -17,7 +17,8 @@ mongoose.connect(
 
 const UserSchema = new mongoose.Schema({
     username: String,
-    apikey: String,
+    zaloapi: String,
+    fptapi: String,
     password: String,
 });
 
@@ -49,10 +50,10 @@ app.use(express.static("public"));
 // Define a route for handling the registration form submission
 app.post("/sign-up", async(req, res) => {
     try {
-        const { username, apikey, password } = req.body;
+        const { username, zaloapi, fptapi, password } = req.body;
 
         // Check for missing fields
-        if (!username || !apikey || !password) {
+        if (!username || !zaloapi || !fptapi || !password) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
@@ -62,13 +63,18 @@ app.post("/sign-up", async(req, res) => {
             return res.status(409).json({ error: "User already exists" });
         }
 
-        // Validate API key
-        if (!(await isValidApiKey(apikey))) {
-            return res.status(401).json({ error: "Invalid API key" });
+        // Validate Zalo API key
+        if (!(await isValidZaloApiKey(zaloapi))) {
+            return res.status(401).json({ error: "Invalid Zalo API key" });
+        }
+
+        // Validate FPT API key
+        if (!(await isValidFptApiKey(fptapi))) {
+            return res.status(401).json({ error: "Invalid FPT API key" });
         }
 
         // Create a new user document
-        const newUser = new User({ username, apikey, password });
+        const newUser = new User({ username, zaloapi, fptapi, password });
 
         // Save the user to the database
         await newUser.save();
@@ -80,13 +86,35 @@ app.post("/sign-up", async(req, res) => {
     }
 });
 
+async function isValidFptApiKey(key) {
+    try {
+        const response = await axios.post(
+            "https://api.fpt.ai/dmp/checklive/v2",
+            null, {
+                headers: {
+                    "api-key": key,
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            }
+        );
+        return response.status !== 401;
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            return false;
+        }
+        throw error;
+    }
+}
+
+
+
 
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
-async function isValidApiKey(key) {
+async function isValidZaloApiKey(key) {
     try {
         const response = await axios.post(
             "https://api.zalo.ai/v1/tts/synthesize",
@@ -105,6 +133,8 @@ async function isValidApiKey(key) {
         throw error;
     }
 }
+
+
 
 const corsOptions = {
     origin: 'https://slowey-project-x.vercel.app/', // Thay thế bằng domain của bạn

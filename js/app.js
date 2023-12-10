@@ -113,14 +113,6 @@ window.onload = function loader() {
     }, 350);
 };
 
-//  CallAPI
-const endpoint = "http://localhost:5000";
-const data = {
-    username: "Hung",
-    apikey: "USMs0fsbJIRuoJtG7nWmotlxPY8ia3tm",
-    password: "51856jafg125",
-};
-
 const handleSignUp = async() => {
     try {
         await axios.post(endpoint + "/sign-up", data, {
