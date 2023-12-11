@@ -40,7 +40,7 @@
                                     <img src="images/logo-dark.png" alt="" class="logo-dark" height="30" />
                                 </a>
                                 <p class="text-muted mt-2">
-                                    Sign up for a new Account
+                                    Sign up for a new Account!
                                 </p>
                             </div>
                             <div class="p-3">
@@ -188,7 +188,7 @@
             termconditionBackground.style.display = "block";
             document.body.classList.add("termcondition-open");
         };
-        document.getElementById("close-btn").addEventListener("click", hideTermsAndConditions);
+        document.querySelector(".close-button").addEventListener("click", hideTermsAndConditions);
 
         function hideTermsAndConditions(event) {
             event.stopPropagation();
