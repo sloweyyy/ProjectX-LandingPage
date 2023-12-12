@@ -147,7 +147,7 @@
                 var popup = document.createElement("div");
                 popup.style.position = "fixed";
                 popup.style.width = "200px";
-                popup.style.height = "120px"; // Adjust height as needed
+                popup.style.height = "120px";
                 popup.style.backgroundColor = isSuccess ? "#d4edda" : "#f8d7da";
                 popup.style.color = isSuccess ? "#155724" : "#721c24";
                 popup.style.padding = "20px";
@@ -162,13 +162,13 @@
 
                 var image = document.createElement("img");
                 image.src = isSuccess ? "images/ui/check.png" : "images/ui/remove.png";
-                image.style.width = "50px"; // Adjust width as needed
-                image.style.height = "50px"; // Adjust height as needed
-                image.style.marginBottom = "10px"; // Adjust margin as needed
+                image.style.width = "50px";
+                image.style.height = "50px";
+                image.style.marginBottom = "10px";
                 popup.appendChild(image);
 
                 var text = document.createElement("p");
-                text.style.marginTop = "0"; // Remove top margin
+                text.style.marginTop = "0";
                 text.appendChild(document.createTextNode(message));
                 popup.appendChild(text);
 
