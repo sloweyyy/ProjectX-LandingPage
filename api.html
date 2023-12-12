@@ -39,8 +39,21 @@
             height: 100%;
             width: 100px;
             /* Độ rộng cố định của navbar */
+            overflow-x: auto;
+            white-space: nowrap;
         }
         
+        .navbar1::-webkit-scrollbar {
+            width: 0.5rem;
+        }
+
+        .navbar1::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        .navbar1::-webkit-scrollbar-thumb {
+            background-color: transparent;
+        } 
         .nav-menu {
             list-style: none;
             margin: 0;
@@ -80,6 +93,12 @@
         .main-content {
             margin-top: 100px;
             /* Điều chỉnh khoảng cách bên trên nội dung */
+        }
+
+        @media (max-width: 768px) {
+            .navbar1 {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -210,6 +229,18 @@
             });
     </script>
 
+    <script>
+        window.addEventListener('resize', function() {
+        var navbar = document.querySelector('.navbar1');
+        var screenWidth = window.innerWidth;
+        
+        if (screenWidth < 768) {
+            navbar.style.display = 'none';
+        } else {
+            navbar.style.display = 'block';
+        }
+        });
+    </script>
 </body>
 
 </html>
