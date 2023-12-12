@@ -76,7 +76,7 @@
         .nav-menu a:hover {
             background: #0563bb;
         }
-        
+
         .main-content {
             margin-top: 100px;
             /* Điều chỉnh khoảng cách bên trên nội dung */
@@ -87,17 +87,6 @@
 <body>
     <div id="navbar-placeholder"></div>
 
-    <!-- Navbar - Sử dụng lại từ trang chính -->
-    <nav class="navbar1">
-        <ul class="nav-menu">
-            <!--- blank line-->
-            <li><a href="#step-0"><i class="fa fa-chevron-right"></i></a></li>
-            <li><a href="#step-1"><i class="fa fa-chevron-right"></i> Bước 1</a></li>
-            <li><a href="#step-2"><i class="fa fa-chevron-right"></i> Bước 2</a></li>
-            <li><a href="#step-3"><i class="fa fa-chevron-right"></i> Bước 3</a></li>
-            <li><a href="#step-4"><i class="fa fa-chevron-right"></i> Bước 4</a></li>
-        </ul>
-    </nav>
 
     <!-- Main Content -->
     <section class="api-instructions main-content">
@@ -106,7 +95,17 @@
             <!-- Get ZaloAI Key -->
             <div class="tab-pane fade show active" id="ZaloAIKey" role="tabpanel" aria-labelledby="ZaloAIKey-tab"> 
                 <h1 class="text-center my-4">Hướng Dẫn Lấy API Key Từ ZaloAI</h1>
-
+                    <!-- Navbar - Sử dụng lại từ trang chính -->
+                <nav class="navbar1">
+                    <ul class="nav-menu">
+                        <!--- blank line-->
+                        <li><a href="#step-0"><i class="fa fa-chevron-right"></i></a></li>
+                        <li><a href="#step-1"><i class="fa fa-chevron-right"></i> Bước 1</a></li>
+                        <li><a href="#step-2"><i class="fa fa-chevron-right"></i> Bước 2</a></li>
+                        <li><a href="#step-3"><i class="fa fa-chevron-right"></i> Bước 3</a></li>
+                        <li><a href="#step-4"><i class="fa fa-chevron-right"></i> Bước 4</a></li>
+                    </ul>
+                </nav>
                 <div class="steps">
                     <ol>
                         <li class="Guide" id="step-1">
@@ -135,23 +134,31 @@
             <!-- Get FPTAI Key -->
             <div class="tab-pane fade" id="FPTAIKey" role="tabpanel" aria-labelledby="FPTAIKey-tab">
                 <h1 class="text-center my-4">Hướng Dẫn Lấy API Key Từ FPTAI</h1>
-
+                <nav class="navbar1">
+                    <ul class="nav-menu">
+                        <!--- blank line-->
+                        <li><a href="#step-2_0"><i class="fa fa-chevron-right"></i></a></li>
+                        <li><a href="#step-2_1"><i class="fa fa-chevron-right"></i> Bước 1</a></li>
+                        <li><a href="#step-2_2"><i class="fa fa-chevron-right"></i> Bước 2</a></li>
+                        <li><a href="#step-2_3"><i class="fa fa-chevron-right"></i> Bước 3</a></li>
+                        <li><a href="#step-2_4"><i class="fa fa-chevron-right"></i> Bước 4</a></li>
+                    </ul>
+                </nav>
                 <div class="steps">
                     <ol>
-                        <li class="Guide" id="step-1">
-                            <!-- Truy cập: <a href="https://zalo.ai/" target="_blank">https://zalo.ai/
-                                <img src="images/getapi/q0qKgNr.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 1"> -->
-                                <a>ok 1234</a>
+                        <li class="Guide" id="step-2_1">
+                            Truy cập: <a href="https://fpt.ai/vi" target="_blank">https://fpt.ai/vi
+                                <img src="images/getapi/FPTAI/step2_1.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 1">
                         </li>
-                        <li class="Guide" id="step-2">
-                            Đăng nhập bằng tài khoản Zalo của bạn.
-                            <img src="images/getapi/RiWXUSR.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 2">
+                        <li class="Guide" id="step-2_2">
+                            Đăng nhập bằng tài khoản FPT của bạn.
+                            <img src="images/getapi/FPTAI/step2_2.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 2">
                         </li>
-                        <li class="Guide" id="step-3">
+                        <li class="Guide" id="step-2_3">
                             Truy cập: <a href="https://zalo.ai/account/manage-keys" target="_blank">https://zalo.ai/account/manage-keys</a> và chọn 'Create new key'.
                             <img src="images/getapi/oVmfDZW.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 3">
                         </li>
-                        <li class="Guide" id="step-4">
+                        <li class="Guide" id="step-2_4">
 
                             Đặt tên gợi nhớ và chọn Text-to-speech.
                             <img src="images/getapi/4Yfhs3L.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 4">
@@ -162,7 +169,8 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> 
+
 
     <!-- Footer - Sử dụng lại từ trang chính -->
     <!-- ... Footer code here -->
