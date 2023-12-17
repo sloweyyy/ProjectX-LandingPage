@@ -15,11 +15,7 @@ app.post("/gemini", async(req, res) => {
 
     try {
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-        const result = await model.generateContent({
-            contents: [{ role: "user", parts }],
-            generationConfig,
-            safetySettings,
-        });
+        const result = await model.generateContent(question);
         res.json({ answer: result.response.text() });
     } catch (error) {
         res.status(500).json({ error: "An error occurred while generating content." });
