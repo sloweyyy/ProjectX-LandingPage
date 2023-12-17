@@ -20,6 +20,8 @@ const UserSchema = new mongoose.Schema({
     zaloapi: String,
     fptapi: String,
     password: String,
+    created_at: { type: Date, default: Date.now },
+    last_used_at: { type: Date, default: Date.now },
 });
 
 UserSchema.pre("save", async function(next) {
@@ -77,6 +79,10 @@ app.post("/sign-up", async(req, res) => {
         const newUser = new User({ username, zaloapi, fptapi, password });
 
         // Save the user to the database
+        await newUser.save();
+
+        // Update last_used_at field
+        newUser.last_used_at = Date.now();
         await newUser.save();
 
         res.json({ message: "Registration successful" });

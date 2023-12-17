@@ -39,8 +39,21 @@
             height: 100%;
             width: 100px;
             /* Độ rộng cố định của navbar */
+            overflow-x: auto;
+            white-space: nowrap;
         }
         
+        .navbar1::-webkit-scrollbar {
+            width: 0.5rem;
+        }
+
+        .navbar1::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        .navbar1::-webkit-scrollbar-thumb {
+            background-color: transparent;
+        } 
         .nav-menu {
             list-style: none;
             margin: 0;
@@ -76,10 +89,16 @@
         .nav-menu a:hover {
             background: #0563bb;
         }
-        
+
         .main-content {
             margin-top: 100px;
             /* Điều chỉnh khoảng cách bên trên nội dung */
+        }
+
+        @media (max-width: 768px) {
+            .navbar1 {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -87,17 +106,6 @@
 <body>
     <div id="navbar-placeholder"></div>
 
-    <!-- Navbar - Sử dụng lại từ trang chính -->
-    <nav class="navbar1">
-        <ul class="nav-menu">
-            <!--- blank line-->
-            <li><a href="#step-0"><i class="fa fa-chevron-right"></i></a></li>
-            <li><a href="#step-1"><i class="fa fa-chevron-right"></i> Bước 1</a></li>
-            <li><a href="#step-2"><i class="fa fa-chevron-right"></i> Bước 2</a></li>
-            <li><a href="#step-3"><i class="fa fa-chevron-right"></i> Bước 3</a></li>
-            <li><a href="#step-4"><i class="fa fa-chevron-right"></i> Bước 4</a></li>
-        </ul>
-    </nav>
 
     <!-- Main Content -->
     <section class="api-instructions main-content">
@@ -106,7 +114,17 @@
             <!-- Get ZaloAI Key -->
             <div class="tab-pane fade show active" id="ZaloAIKey" role="tabpanel" aria-labelledby="ZaloAIKey-tab"> 
                 <h1 class="text-center my-4">Hướng Dẫn Lấy API Key Từ ZaloAI</h1>
-
+                    <!-- Navbar - Sử dụng lại từ trang chính -->
+                <nav class="navbar1">
+                    <ul class="nav-menu">
+                        <!--- blank line-->
+                        <li><a href="#step-0"><i class="fa fa-chevron-right"></i></a></li>
+                        <li><a href="#step-1"><i class="fa fa-chevron-right"></i> Bước 1</a></li>
+                        <li><a href="#step-2"><i class="fa fa-chevron-right"></i> Bước 2</a></li>
+                        <li><a href="#step-3"><i class="fa fa-chevron-right"></i> Bước 3</a></li>
+                        <li><a href="#step-4"><i class="fa fa-chevron-right"></i> Bước 4</a></li>
+                    </ul>
+                </nav>
                 <div class="steps">
                     <ol>
                         <li class="Guide" id="step-1">
@@ -135,34 +153,62 @@
             <!-- Get FPTAI Key -->
             <div class="tab-pane fade" id="FPTAIKey" role="tabpanel" aria-labelledby="FPTAIKey-tab">
                 <h1 class="text-center my-4">Hướng Dẫn Lấy API Key Từ FPTAI</h1>
-
+                <nav class="navbar1">
+                    <ul class="nav-menu">
+                        <!--- blank line-->
+                        <li><a href="#step-2_0"><i class="fa fa-chevron-right"></i></a></li>
+                        <li><a href="#step-2_1"><i class="fa fa-chevron-right"></i> Bước 1</a></li>
+                        <li><a href="#step-2_2"><i class="fa fa-chevron-right"></i> Bước 2</a></li>
+                        <li><a href="#step-2_3"><i class="fa fa-chevron-right"></i> Bước 3</a></li>
+                        <li><a href="#step-2_4"><i class="fa fa-chevron-right"></i> Bước 4</a></li>
+                        <li><a href="#step-2_5"><i class="fa fa-chevron-right"></i> Bước 5</a></li>
+                        <li><a href="#step-2_6"><i class="fa fa-chevron-right"></i> Bước 6</a></li>
+                        <li><a href="#step-2_7"><i class="fa fa-chevron-right"></i> Bước 7</a></li>
+                        <li><a href="#step-2_8"><i class="fa fa-chevron-right"></i> Bước 8</a></li>
+                    </ul>
+                </nav>
                 <div class="steps">
                     <ol>
-                        <li class="Guide" id="step-1">
-                            <!-- Truy cập: <a href="https://zalo.ai/" target="_blank">https://zalo.ai/
-                                <img src="images/getapi/q0qKgNr.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 1"> -->
-                                <a>ok 1234</a>
+                        <li class="Guide" id="step-2_1">
+                            Truy cập: <a href="https://fpt.ai/vi" target="_blank">https://fpt.ai/vi
+                                <img src="images/getapi/FPTAI/step2_1.png" style="width: 100%; height: auto; margin-top: 20px; border-radius:15px" alt="Hướng dẫn 1">
                         </li>
-                        <li class="Guide" id="step-2">
-                            Đăng nhập bằng tài khoản Zalo của bạn.
-                            <img src="images/getapi/RiWXUSR.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 2">
+                        <li class="Guide" id="step-2_2">
+                            <a href="https://id.fptcloud.com/auth/realms/FptSmartCloud/protocol/openid-connect/auth?client_id=fptai_console&redirect_uri=https://console.fpt.ai/home&state=https://console.fpt.ai/&response_type=code&scope=openid+profile+email+phone"  target="_blank">
+                                                                Đăng nhập bằng tài khoản FPT của bạn.
+                            <img src="images/getapi/FPTAI/step2_2.png" style="width: 100%; height: auto; margin-top: 20px; border-radius: 15px" alt="Hướng dẫn 2">
                         </li>
-                        <li class="Guide" id="step-3">
-                            Truy cập: <a href="https://zalo.ai/account/manage-keys" target="_blank">https://zalo.ai/account/manage-keys</a> và chọn 'Create new key'.
-                            <img src="images/getapi/oVmfDZW.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 3">
+                        <li class="Guide" id="step-2_3">
+                            Sau khi đăng nhập màn hình sẽ hiển thị như sau, ấn mở Text to Speech
+                            <img src="images/getapi/FPTAI/step2_3.png" style="width: 100%; height: auto; margin-top: 20px; border-radius:15px" alt="Hướng dẫn 3">
                         </li>
-                        <li class="Guide" id="step-4">
-
-                            Đặt tên gợi nhớ và chọn Text-to-speech.
-                            <img src="images/getapi/4Yfhs3L.png" style="width: 100%; height: auto; margin-top: 20px" alt="Hướng dẫn 4">
+                        <li class="Guide" id="step-2_4">
+                            Chọn CONFIRM
+                            <img src="images/getapi/FPTAI/step2_4.png" style="width: 100%; height: auto; margin-top: 20px; border-radius:15px" alt="Hướng dẫn 4">
                         </li>
-
+                        <li class="Guide" id="step-2_5">
+                            Đặt tên dự án và chọn CREATE
+                                <img src="images/getapi/FPTAI/step2_5.png" style="width: 100%; height: auto; margin-top: 20px; border-radius:15px" alt="Hướng dẫn 5">
+                        </li>
+                        <li class="Guide" id="step-2_6">
+                            Đặt tên Key và chọn CREATE
+                            <img src="images/getapi/FPTAI/step2_6.png" style="width: 100%; height: auto; margin-top: 20px; border-radius: 15px" alt="Hướng dẫn 6">
+                        </li>
+                        <li class="Guide" id="step-2_7">
+                            Màn hình sẽ hiển thị như sau. Chọn API Keys
+                            <img src="images/getapi/FPTAI/step2_7.png" style="width: 100%; height: auto; margin-top: 20px; border-radius:15px" alt="Hướng dẫn 7">
+                        </li>
+                        <li class="Guide" id="step-2_8">
+                            Chọn sao chép Key và sử dụng
+                            <img src="images/getapi/FPTAI/step2_8.png" style="width: 100%; height: auto; margin-top: 20px; border-radius:15px" alt="Hướng dẫn 8">
+                        </li>
                         <!-- Thêm các bước cụ thể khác từ tệp PDF -->
                     </ol>
                 </div>
             </div>
         </div>
-    </section>
+    </section> 
+
 
     <!-- Footer - Sử dụng lại từ trang chính -->
     <!-- ... Footer code here -->
@@ -183,6 +229,18 @@
             });
     </script>
 
+    <script>
+        window.addEventListener('resize', function() {
+        var navbar = document.querySelector('.navbar1');
+        var screenWidth = window.innerWidth;
+        
+        if (screenWidth < 768) {
+            navbar.style.display = 'none';
+        } else {
+            navbar.style.display = 'block';
+        }
+        });
+    </script>
 </body>
 
 </html>
