@@ -8,7 +8,8 @@ const app = express();
 const port = process.env.PORT || 5500;
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const genAI = new GoogleGenerativeAI("AIzaSyAbWrTm4FIN3pJVdhpEC6E5rK2Qy_ErsGM");
+const genAI = new GoogleGenerativeAI(atob('QUl6YVN5RFR4dkpFZEhNRzVhOGI5ejhTQ3V1czRqZ25MOTFfeWk0'));
+const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
 
 mongoose.connect(
     "mongodb+srv://slowey:tlvptlvp@projectx.3vv2dfv.mongodb.net/ProjectX", {
@@ -43,47 +44,36 @@ UserSchema.methods.correctPassword = async function(
 
 const User = mongoose.model("Users", UserSchema);
 
-// Middleware setup
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-// Serve static files (CSS, JS, etc.)
 app.use(express.static("public"));
 
-// Define a route for handling the registration form submission
-// Define a route for handling the registration form submission
 app.post("/sign-up", async(req, res) => {
     try {
         const { username, zaloapi, fptapi, password } = req.body;
 
-        // Check for missing fields
         if (!username || !zaloapi || !fptapi || !password) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
-        // Check if user already exists
         const existingUser = await User.findOne({ username });
         if (existingUser) {
             return res.status(409).json({ error: "User already exists" });
         }
 
-        // Validate Zalo API key
         if (!(await isValidZaloApiKey(zaloapi))) {
             return res.status(401).json({ error: "Invalid Zalo API key" });
         }
 
-        // Validate FPT API key
         if (!(await isValidFptApiKey(fptapi))) {
             return res.status(401).json({ error: "Invalid FPT API key" });
         }
 
-        // Create a new user document
         const newUser = new User({ username, zaloapi, fptapi, password });
 
-        // Save the user to the database
         await newUser.save();
 
-        // Update last_used_at field
         newUser.last_used_at = Date.now();
         await newUser.save();
 
@@ -93,25 +83,37 @@ app.post("/sign-up", async(req, res) => {
         res.status(500).json({ error: "Registration failed" });
     }
 });
+const prompt = "Hello!"; // Replace with your prompt if any. This prompt is to tell the bot about the context or the role it must take
 
-app.post("/gemini", async(req, res) => {
-    const { question } = req.body;
-
-    if (!question) {
-        return res.status(400).json({ error: "Question not found." });
-    }
-
+app.post('/gemini', async(req, res) => {
     try {
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-        const result = await model.generateContent(question);
-        res.json({ answer: result.response.text() });
+        const { question } = req.body;
+
+        const chat = model.startChat({
+            history: [{
+                    role: 'user',
+                    parts: prompt,
+                },
+                {
+                    role: 'model',
+                    parts: 'Hello, how can I help you?',
+                },
+            ],
+            generationConfig: {
+                maxOutputTokens: 100,
+            },
+        });
+
+        const result = await chat.sendMessage(question);
+        const response = await result.response;
+        const text = response.text();
+
+        res.json({ response: text });
     } catch (error) {
-        console.log(error);
-        res
-            .status(500)
-            .json({ error: "An error occurred while generating content." });
+        res.status(500).json({ error: error.message });
     }
 });
+
 
 async function isValidFptApiKey(key) {
     try {
@@ -133,7 +135,6 @@ async function isValidFptApiKey(key) {
     }
 }
 
-// Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
@@ -159,7 +160,7 @@ async function isValidZaloApiKey(key) {
 }
 
 const corsOptions = {
-    origin: "https://slowey-project-x.vercel.app/", // Thay thế bằng domain của bạn
+    origin: "https://slowey-project-x.vercel.app/",
     optionsSuccessStatus: 200,
 };
 
