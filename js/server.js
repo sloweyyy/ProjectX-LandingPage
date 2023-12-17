@@ -4,12 +4,11 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const axios = require("axios");
 const cors = require("cors");
+const app = express();
+const port = process.env.PORT || 5500;
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const genAI = new GoogleGenerativeAI("AIzaSyAbWrTm4FIN3pJVdhpEC6E5rK2Qy_ErsGM");
-
-const app = express();
-const port = process.env.PORT || 5500;
 
 mongoose.connect(
     "mongodb+srv://slowey:tlvptlvp@projectx.3vv2dfv.mongodb.net/ProjectX", {
@@ -44,12 +43,14 @@ UserSchema.methods.correctPassword = async function(
 
 const User = mongoose.model("Users", UserSchema);
 
+// Middleware setup
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.use(cors());
 // Serve static files (CSS, JS, etc.)
 app.use(express.static("public"));
 
+// Define a route for handling the registration form submission
 // Define a route for handling the registration form submission
 app.post("/sign-up", async(req, res) => {
     try {
@@ -93,6 +94,25 @@ app.post("/sign-up", async(req, res) => {
     }
 });
 
+app.post("/gemini", async(req, res) => {
+    const { question } = req.body;
+
+    if (!question) {
+        return res.status(400).json({ error: "Question not found." });
+    }
+
+    try {
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        const result = await model.generateContent(question);
+        res.json({ answer: result.response.text() });
+    } catch (error) {
+        console.log(error);
+        res
+            .status(500)
+            .json({ error: "An error occurred while generating content." });
+    }
+});
+
 async function isValidFptApiKey(key) {
     try {
         const response = await axios.post(
@@ -112,6 +132,11 @@ async function isValidFptApiKey(key) {
         throw error;
     }
 }
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
 
 async function isValidZaloApiKey(key) {
     try {
@@ -133,34 +158,9 @@ async function isValidZaloApiKey(key) {
     }
 }
 
-// Middleware setup for the Google Generative AI
-app.use(express.json());
-
-app.post("/gemini", async(req, res) => {
-    const { question } = req.body;
-
-    if (!question) {
-        return res.status(400).json({ error: "Question not found." });
-    }
-
-    try {
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-        const result = await model.generateContent(question);
-        res.json({ answer: result.response.text() });
-    } catch (error) {
-        res.status(500).json({ error: "An error occurred while generating content." });
-    }
-});
-
-// CORS setup for the Google Generative AI
 const corsOptions = {
-    origin: 'https://slowey-project-x.vercel.app/', // Replace with your domain
+    origin: "https://slowey-project-x.vercel.app/", // Thay thế bằng domain của bạn
     optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
-
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
