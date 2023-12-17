@@ -4,7 +4,7 @@
     </a>
 </div>
 
-# ProjectX Landing Page
+# ỨNG DỤNG ĐA CHỨC NĂNG CHO NGƯỜI VIỆT - PROJECTX
 
 Welcome to the repository for ProjectX's Landing Page! This landing page is part of a visual programming course project at the University of Information Technology, Vietnam National University, Ho Chi Minh City.
 
