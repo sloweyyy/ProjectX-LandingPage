@@ -1,7 +1,7 @@
 const express = require("express");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const genAI = new GoogleGenerativeAI("YOUR_API_KEY");
+const genAI = new GoogleGenerativeAI("AIzaSyAbWrTm4FIN3pJVdhpEC6E5rK2Qy_ErsGM");
 const app = express();
 
 app.use(express.json());
