@@ -100,7 +100,7 @@ app.post('/gemini', async(req, res) => {
                 },
             ],
             generationConfig: {
-                maxOutputTokens: 100,
+                maxOutputTokens: 200,
             },
         });
 
@@ -160,8 +160,9 @@ async function isValidZaloApiKey(key) {
 }
 
 const corsOptions = {
-    origin: "https://slowey-project-x.vercel.app/",
+    origin: "*", // Allow requests from any origin during development
     optionsSuccessStatus: 200,
 };
+
 
 app.use(cors(corsOptions));
