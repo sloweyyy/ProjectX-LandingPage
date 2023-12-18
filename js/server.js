@@ -20,6 +20,7 @@ mongoose.connect(
 
 const UserSchema = new mongoose.Schema({
     username: String,
+    useraccountname: String,
     zaloapi: String,
     fptapi: String,
     password: String,
@@ -51,9 +52,9 @@ app.use(express.static("public"));
 
 app.post("/sign-up", async(req, res) => {
     try {
-        const { username, zaloapi, fptapi, password } = req.body;
+        const { username, useraccountname, zaloapi, fptapi, password } = req.body;
 
-        if (!username || !zaloapi || !fptapi || !password) {
+        if (!username || !useraccountname || !zaloapi || !fptapi || !password) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
@@ -70,7 +71,7 @@ app.post("/sign-up", async(req, res) => {
             return res.status(401).json({ error: "Invalid FPT API key" });
         }
 
-        const newUser = new User({ username, zaloapi, fptapi, password });
+        const newUser = new User({ username, useraccountname, zaloapi, fptapi, password });
 
         await newUser.save();
 
@@ -83,6 +84,7 @@ app.post("/sign-up", async(req, res) => {
         res.status(500).json({ error: "Registration failed" });
     }
 });
+
 const prompt = "Hello!"; // Replace with your prompt if any. This prompt is to tell the bot about the context or the role it must take
 
 app.post('/gemini', async(req, res) => {
