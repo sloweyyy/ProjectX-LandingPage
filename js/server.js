@@ -20,7 +20,7 @@ mongoose.connect(
 
 const UserSchema = new mongoose.Schema({
     username: String,
-    useraccountname: String,
+    useraccountname: { type: String, default: null },
     zaloapi: String,
     fptapi: String,
     password: String,
@@ -54,7 +54,7 @@ app.post("/sign-up", async(req, res) => {
     try {
         const { username, useraccountname, zaloapi, fptapi, password } = req.body;
 
-        if (!username || !useraccountname || !zaloapi || !fptapi || !password) {
+        if (!username || useraccountname || !zaloapi || !fptapi || !password) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
@@ -71,7 +71,7 @@ app.post("/sign-up", async(req, res) => {
             return res.status(401).json({ error: "Invalid FPT API key" });
         }
 
-        const newUser = new User({ username, useraccountname, zaloapi, fptapi, password });
+        const newUser = new User({ username, zaloapi, fptapi, password });
 
         await newUser.save();
 
