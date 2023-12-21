@@ -102,7 +102,7 @@ app.post('/gemini', async(req, res) => {
                 },
             ],
             generationConfig: {
-                maxOutputTokens: 200,
+                maxOutputTokens: 5000,
             },
         });
 
