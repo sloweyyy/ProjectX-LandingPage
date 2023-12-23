@@ -320,7 +320,7 @@
                                             <script>
                                                 function initiateVnpayPayment() {
                                                     // Fetch the VNPAY payment URL from the server
-                                                    fetch('/create_payment_url', {
+                                                    fetch('/https://projectx-landingpage-production.up.railway.app/create_payment_url', {
                                                             method: 'POST',
                                                             headers: {
                                                                 'Content-Type': 'application/json',
@@ -339,7 +339,7 @@
                                                         })
                                                         .catch(error => console.error('Error:', error));
 
-                                                    // direct to the payment
+
 
                                                 }
                                             </script>
