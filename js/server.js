@@ -7,9 +7,11 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5500;
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const router = express.Router();
 
 const genAI = new GoogleGenerativeAI(atob('QUl6YVN5RFR4dkpFZEhNRzVhOGI5ejhTQ3V1czRqZ25MOTFfeWk0'));
 const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+app.use(router);
 
 mongoose.connect(
     "mongodb+srv://slowey:tlvptlvp@projectx.3vv2dfv.mongodb.net/ProjectX", {
@@ -26,6 +28,7 @@ const UserSchema = new mongoose.Schema({
     password: String,
     created_at: { type: Date, default: Date.now },
     last_used_at: { type: Date, default: Date.now },
+    premium: { type: Boolean, default: false },
 });
 
 UserSchema.pre("save", async function(next) {
@@ -71,7 +74,7 @@ app.post("/sign-up", async(req, res) => {
             return res.status(401).json({ error: "Invalid FPT API key" });
         }
 
-        const newUser = new User({ username, zaloapi, fptapi, password });
+        const newUser = new User({ username, zaloapi, fptapi, password, premium: false });
 
         await newUser.save();
 
@@ -160,6 +163,69 @@ async function isValidZaloApiKey(key) {
         throw error;
     }
 }
+
+
+router.post('/create_payment_url', function(req, res, next) {
+    var ipAddr = req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress;
+
+    var config = require('config');
+    var dateFormat = require('dateformat');
+
+
+    var tmnCode = 'FKYPBU79';
+    var secretKey = 'YHIPIEHSZJRXFMPMXZHICIHCLZDJRGUO';
+    var vnpUrl = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
+    var returnUrl = config.get('vnp_ReturnUrl');
+
+    var date = new Date();
+
+    var createDate = dateFormat(date, 'yyyymmddHHmmss');
+    var orderId = dateFormat(date, 'HHmmss');
+    var amount = req.body.amount;
+    var bankCode = req.body.bankCode;
+
+    var orderInfo = req.body.orderDescription;
+    var orderType = req.body.orderType;
+    var locale = req.body.language;
+    if (locale === null || locale === '') {
+        locale = 'vn';
+    }
+    var currCode = 'VND';
+    var vnp_Params = {};
+    vnp_Params['vnp_Version'] = '2.1.0';
+    vnp_Params['vnp_Command'] = 'pay';
+    vnp_Params['vnp_TmnCode'] = tmnCode;
+    // vnp_Params['vnp_Merchant'] = ''
+    vnp_Params['vnp_Locale'] = locale;
+    vnp_Params['vnp_CurrCode'] = currCode;
+    vnp_Params['vnp_TxnRef'] = orderId;
+    vnp_Params['vnp_OrderInfo'] = orderInfo;
+    vnp_Params['vnp_OrderType'] = orderType;
+    vnp_Params['vnp_Amount'] = amount * 100;
+    vnp_Params['vnp_ReturnUrl'] = returnUrl;
+    vnp_Params['vnp_IpAddr'] = ipAddr;
+    vnp_Params['vnp_CreateDate'] = createDate;
+    if (bankCode !== null && bankCode !== '') {
+        vnp_Params['vnp_BankCode'] = bankCode;
+    }
+
+    vnp_Params = sortObject(vnp_Params);
+
+    var querystring = require('qs');
+    var signData = querystring.stringify(vnp_Params, { encode: false });
+    var crypto = require("crypto");
+    var hmac = crypto.createHmac("sha512", secretKey);
+    var signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");
+    vnp_Params['vnp_SecureHash'] = signed;
+    vnpUrl += '?' + querystring.stringify(vnp_Params, { encode: false });
+
+    res.redirect(vnpUrl)
+        // console
+    console.log(vnpUrl);
+});
 
 const corsOptions = {
     origin: "*", // Allow requests from any origin during development

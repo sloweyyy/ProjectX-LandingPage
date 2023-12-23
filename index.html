@@ -275,10 +275,9 @@
                                                 <img src="images/pricing/1.png" alt="" class="img-fluid d-block mx-auto" />
                                             </div>
                                             <h4 class="text-uppercase mb-4 pb-1">Gói Cơ Bản</h4>
-                                            <p class="text-muted">Dung lượng: <span class="fw-bold">50MB</span></p>
+                                            <p class="text-muted">GeminiAI <span class="fw-bold">Không</span></p>
                                             <p class="text-muted">Hỗ trợ: <span class="fw-bold">Không</span></p>
-                                            <p class="text-muted mb-4 pb-1">Tên miền 1</p>
-                                            <p class="text-muted font-size-14 mb-1">Bao gồm tất cả các tiện ích</p> <br>
+                                            <p class="text-muted font-size-14 mb-1">Hạn chế một số tiện ích</p> <br>
                                             <p class="text-dark font-size-16 font-weight-semibold mb-4">Miễn phí
                                             </p>
                                             <a href="javascript: void(0);" class="btn btn-soft-primary">Tải Ngay</a>
@@ -312,12 +311,39 @@
                                                 <img src="images/pricing/3.png" alt="" class="img-fluid d-block mx-auto" />
                                             </div>
                                             <h4 class="text-uppercase mb-4 pb-1">Gói Premium</h4>
-                                            <p class="text-muted">Dung lượng: <span class="fw-bold">200MB</span></p>
-                                            <p class="text-muted">Hỗ trợ: <span class="fw-bold">Không</span></p>
-                                            <p class="text-muted mb-4 pb-1">Tên miền 1</p>
+                                            <p class="text-muted">GeminiAI <span class="fw-bold">Có</span></p>
+                                            <p class="text-muted">Hỗ trợ: <span class="fw-bold">Có</span></p>
                                             <p class="text-muted font-size-14 mb-1">Bao gồm tất cả các tiện ích và nhiều chức năng nâng cao khác</p>
                                             <p class="text-dark font-size-16 font-weight-semibold mb-4">300.000VND / Tháng</p>
-                                            <a href="javascript: void(0);" class="btn btn-soft-primary">Mua Ngay</a>
+                                            <a href="#" class="btn btn-soft-primary" onclick="initiateVnpayPayment()">Mua Ngay</a>
+
+                                            <script>
+                                                function initiateVnpayPayment() {
+                                                    // Fetch the VNPAY payment URL from the server
+                                                    fetch('/create_payment_url', {
+                                                            method: 'POST',
+                                                            headers: {
+                                                                'Content-Type': 'application/json',
+                                                            },
+                                                            body: JSON.stringify({
+                                                                amount: 30000000,
+                                                                bankCode: '',
+                                                                orderDescription: '',
+                                                                orderType: 'pay',
+                                                                language: 'vn',
+                                                            }),
+                                                        })
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            window.location.href = data.vnpPaymentUrl;
+                                                        })
+                                                        .catch(error => console.error('Error:', error));
+
+                                                    // direct to the payment
+
+                                                }
+                                            </script>
+
                                         </div>
                                     </div>
                                 </div>
@@ -336,9 +362,8 @@
                                                 <img src="images/pricing/1.png" alt="" class="img-fluid d-block mx-auto" />
                                             </div>
                                             <h4 class="text-uppercase mb-4 pb-1">Gói Cơ Bản</h4>
-                                            <p class="text-muted">Dung lượng: <span class="fw-bold">50MB</span></p>
+                                            <p class="text-muted">GeminiAI <span class="fw-bold">Không</span></p>
                                             <p class="text-muted">Hỗ trợ: <span class="fw-bold">Không</span></p>
-                                            <p class="text-muted mb-4 pb-1">Tên miền 1</p>
                                             <p class="text-muted font-size-14 mb-1">Bao gồm tất cả các tiện ích </p> <br>
                                             <p class="text-dark font-size-16 font-weight-semibold mb-4">Miễn phí </p>
                                             <a href="javascript: void(0);" class="btn btn-soft-primary">Tải Ngay</a>
@@ -372,13 +397,12 @@
                                                 <img src="images/pricing/3.png" alt="" class="img-fluid d-block mx-auto" />
                                             </div>
                                             <h4 class="text-uppercase mb-4 pb-1">Gói Premium</h4>
-                                            <p class="text-muted">Dung lượng: <span class="fw-bold">200MB</span></p>
-                                            <p class="text-muted">Hỗ trợ: <span class="fw-bold">Không</span></p>
-                                            <p class="text-muted mb-4 pb-1">Tên miền 1</p>
+                                            <p class="text-muted">GeminiAI <span class="fw-bold">Có</span></p>
+                                            <p class="text-muted">Hỗ trợ: <span class="fw-bold">Có</span></p>
                                             <p class="text-muted font-size-14 mb-1">Bao gồm tất cả các tiện ích và nhiều chức năng nâng cao khác</p>
                                             <p class="text-dark font-size-16 font-weight-semibold mb-4">3.600.000VND/ Năm
                                             </p>
-                                            <a href="javascript: void(0);" class="btn btn-soft-primary">Mua Ngay</a>
+                                            <a href="#" class="btn btn-soft-primary" onclick="initiateVnpayPayment()">Mua Ngay</a>
                                         </div>
                                     </div>
                                 </div>
@@ -564,6 +588,8 @@
         <!-- end container -->
     </section>
     <!-- Contact us end -->
+
+
 
 
 
