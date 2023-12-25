@@ -92,7 +92,7 @@
                 </div>
                 <div class="col-lg-6 col-sm-10 mx-auto ms-lg-auto me-lg-0">
                     <div class="mt-lg-0 mt-4">
-                        <img src="images/hero-1-img.png" alt="" class="img-md-responsive" />
+                        <img src="/images/EDITION.png" height="700px" class="img-md-responsive" />
                     </div>
                 </div>
             </div>
@@ -528,6 +528,34 @@
                                 </div>
                             </div>
                         </form>
+                        <script>
+                            function validateForm() {
+                                var name = document.forms["myForm"]["name"].value;
+                                var email = document.forms["myForm"]["email"].value;
+                                var subject = document.forms["myForm"]["subject"].value;
+                                var comments = document.forms["myForm"]["comments"].value;
+
+                                // Simple validation
+                                if (name.trim() === "") {
+                                    document.getElementById("error-msg").innerHTML = "Họ tên không được để trống";
+                                    return false;
+                                }
+
+                                if (email.trim() === "") {
+                                    document.getElementById("error-msg").innerHTML = "Email không được để trống";
+                                    return false;
+                                }
+
+                                // You can add more validation rules as needed
+
+                                // Clear any previous error message
+                                document.getElementById("error-msg").innerHTML = "";
+
+                                // If all validations pass, the form is considered valid
+                                return true;
+                            }
+                        </script>
+
                     </div>
 
                 </div>
@@ -540,20 +568,7 @@
                         </p>
                         <p class="text-muted mb-3"><i class="me-2 text-muted icon icon-xs" data-feather="phone"></i> +84 367 855 XXX</p>
                         <p class="text-muted mb-3"><i class="me-2 text-muted icon icon-xs" data-feather="map-pin"></i> UIT - VNUHCM</p>
-                        <ul class="list-inline pt-4">
-                            <li class="list-inline-item me-3">
-                                <a href="javascript: void(0);" class="social-icon icon-mono avatar-xs rounded-circle"><i
-                                        class="icon-xs" data-feather="facebook"></i></a>
-                            </li>
-                            <li class="list-inline-item me-3">
-                                <a href="javascript: void(0);" class="social-icon icon-mono avatar-xs rounded-circle"><i
-                                        class="icon-xs" data-feather="twitter"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="javascript: void(0);" class="social-icon icon-mono avatar-xs rounded-circle"><i
-                                        class="icon-xs" data-feather="instagram"></i></a>
-                            </li>
-                        </ul>
+
                     </div>
                 </div>
                 <!-- end col -->
