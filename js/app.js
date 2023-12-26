@@ -36,9 +36,8 @@ function validateForm() {
     var subject = document.forms["myForm"]["subject"].value;
     var comments = document.forms["myForm"]["comments"].value;
 
-    // Clear previous error messages
-    document.getElementById("error-msg").style.opacity = 0;
-    document.getElementById("error-msg").innerHTML = "";
+    // Clear previous messages
+    clearMessages();
 
     // Client-side validation
     if (name.trim() === "") {
@@ -64,7 +63,7 @@ function validateForm() {
         if (this.readyState == 4) {
             if (this.status == 200) {
                 // Successful response
-                document.getElementById("simple-msg").innerHTML = this.responseText;
+                displaySuccessMessage("Message sent successfully");
                 // Optionally, you can clear the form fields here
                 clearFormFields();
             } else {
@@ -75,13 +74,14 @@ function validateForm() {
     };
 
     // Construct the request parameters
-    var params = "name=" + encodeURIComponent(name) +
+    var params =
+        "name=" + encodeURIComponent(name) +
         "&email=" + encodeURIComponent(email) +
         "&subject=" + encodeURIComponent(subject) +
         "&comments=" + encodeURIComponent(comments);
 
     // Send the request
-    xhttp.open("POST", "https://projectx-landingpage-production.up.railway.app/contact.php", true);
+    xhttp.open("POST", "https://projectx-landingpage-production.up.railway.app/send-message", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(params);
 
@@ -89,9 +89,20 @@ function validateForm() {
 }
 
 function displayErrorMessage(message) {
-    document.getElementById("error-msg").style.opacity = 1;
-    document.getElementById("error-msg").innerHTML =
-        "<div class='alert alert-warning error_message'>*" + message + "*</div>";
+    var errorMsgElement = document.getElementById("error-msg");
+    errorMsgElement.style.opacity = 1;
+    errorMsgElement.innerHTML = "<div class='alert alert-danger error-message'>" + message + "</div>";
+}
+
+function displaySuccessMessage(message) {
+    var successMsgElement = document.getElementById("simple-msg");
+    successMsgElement.innerHTML = "<div class='alert alert-success success-message'>" + message + "</div>";
+}
+
+function clearMessages() {
+    document.getElementById("error-msg").style.opacity = 0;
+    document.getElementById("error-msg").innerHTML = "";
+    document.getElementById("simple-msg").innerHTML = "";
 }
 
 function clearFormFields() {
