@@ -498,7 +498,7 @@
                     <h2 class="fw-bold mb-4">Liên hệ với chúng tôi</h2>
 
                     <div>
-                        <form method="post" name="myForm" onsubmit="return validateForm()">
+                        <form method="post" action="/send-message" name="myForm" onsubmit="return validateForm()">
                             <p id="error-msg"></p>
                             <div id="simple-msg"></div>
                             <div class="row">
@@ -528,33 +528,6 @@
                                 </div>
                             </div>
                         </form>
-                        <script>
-                            function validateForm() {
-                                var name = document.forms["myForm"]["name"].value;
-                                var email = document.forms["myForm"]["email"].value;
-                                var subject = document.forms["myForm"]["subject"].value;
-                                var comments = document.forms["myForm"]["comments"].value;
-
-                                // Simple validation
-                                if (name.trim() === "") {
-                                    document.getElementById("error-msg").innerHTML = "Họ tên không được để trống";
-                                    return false;
-                                }
-
-                                if (email.trim() === "") {
-                                    document.getElementById("error-msg").innerHTML = "Email không được để trống";
-                                    return false;
-                                }
-
-                                // You can add more validation rules as needed
-
-                                // Clear any previous error message
-                                document.getElementById("error-msg").innerHTML = "";
-
-                                // If all validations pass, the form is considered valid
-                                return true;
-                            }
-                        </script>
 
                     </div>
 

@@ -1,12 +1,16 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
-const axios = require("axios");
-const cors = require("cors");
+const { z } = require('zod');
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const { google } = require('googleapis');
+const { client_email, private_key } = require('../secret.json');
+const bcrypt = require('bcrypt');
+const axios = require('axios');
+const cors = require('cors');
+const dayjs = require('dayjs');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 const app = express();
 const port = process.env.PORT || 5500;
-const { GoogleGenerativeAI } = require("@google/generative-ai");
 const router = express.Router();
 
 const genAI = new GoogleGenerativeAI(atob('QUl6YVN5RFR4dkpFZEhNRzVhOGI5ejhTQ3V1czRqZ25MOTFfeWk0'));
@@ -164,6 +168,46 @@ async function isValidZaloApiKey(key) {
     }
 }
 
+
+
+const spreadsheetId = '1HA42o3I_RfxeHLao2CG995kIuU4cdY-sGoK6K6316n4';
+
+
+
+app.post('/send-message', async(req, res) => {
+    try {
+        const { name, email, subject, comment } = req.body;
+
+        // Create client instance for auth
+        const client = new google.auth.JWT(client_email, undefined, private_key, ['https://www.googleapis.com/auth/spreadsheets']);
+
+        const range = 'A2:E2'; // Replace this with the appropriate range for your spreadsheet
+        const googleSheets = google.sheets({ version: 'v4', auth: client });
+        const now = dayjs().format('DD/MM/YYYY HH:mm:ss');
+
+        await googleSheets.spreadsheets.values.append({
+            auth: client,
+            spreadsheetId,
+            range,
+            valueInputOption: 'USER_ENTERED',
+            resource: {
+                values: [
+                    [now, name, email, subject, comment]
+                ],
+            },
+        });
+
+        res.json({ message: 'Message sent successfully' });
+    } catch (error) {
+        console.error('Error handling the /send-message endpoint:', error);
+
+        if (error instanceof z.ZodError) {
+            res.status(400).json({ error: error.errors });
+        } else {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+});
 
 
 

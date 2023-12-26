@@ -35,57 +35,73 @@ function validateForm() {
     var email = document.forms["myForm"]["email"].value;
     var subject = document.forms["myForm"]["subject"].value;
     var comments = document.forms["myForm"]["comments"].value;
+
+    // Clear previous error messages
     document.getElementById("error-msg").style.opacity = 0;
     document.getElementById("error-msg").innerHTML = "";
-    if (name == "" || name == null) {
-        document.getElementById("error-msg").innerHTML =
-            "<div class='alert alert-warning error_message'>*Please enter a Name*</div>";
-        fadeIn();
+
+    // Client-side validation
+    if (name.trim() === "") {
+        displayErrorMessage("Please enter a Name");
         return false;
     }
-    if (email == "" || email == null) {
-        document.getElementById("error-msg").innerHTML =
-            "<div class='alert alert-warning error_message'>*Please enter a Email*</div>";
-        fadeIn();
+    if (email.trim() === "") {
+        displayErrorMessage("Please enter an Email");
         return false;
     }
-    if (subject == "" || subject == null) {
-        document.getElementById("error-msg").innerHTML =
-            "<div class='alert alert-warning error_message'>*Please enter a Subject*</div>";
-        fadeIn();
+    if (subject.trim() === "") {
+        displayErrorMessage("Please enter a Subject");
         return false;
     }
-    if (comments == "" || comments == null) {
-        document.getElementById("error-msg").innerHTML =
-            "<div class='alert alert-warning error_message'>*Please enter a Comments*</div>";
-        fadeIn();
+    if (comments.trim() === "") {
+        displayErrorMessage("Please enter Comments");
         return false;
     }
 
+    // AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("simple-msg").innerHTML = this.responseText;
-            document.forms["myForm"]["name"].value = "";
-            document.forms["myForm"]["email"].value = "";
-            document.forms["myForm"]["subject"].value = "";
-            document.forms["myForm"]["comments"].value = "";
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                // Successful response
+                document.getElementById("simple-msg").innerHTML = this.responseText;
+                // Optionally, you can clear the form fields here
+                clearFormFields();
+            } else {
+                // Error handling for HTTP status other than 200
+                displayErrorMessage("Error: " + this.status);
+            }
         }
     };
-    xhttp.open("POST", "php/contact.php", true);
+
+    // Construct the request parameters
+    var params = "name=" + encodeURIComponent(name) +
+        "&email=" + encodeURIComponent(email) +
+        "&subject=" + encodeURIComponent(subject) +
+        "&comments=" + encodeURIComponent(comments);
+
+    // Send the request
+    xhttp.open("POST", "https://projectx-landingpage-production.up.railway.app/contact.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(
-        "name=" +
-        name +
-        "&email=" +
-        email +
-        "&subject=" +
-        subject +
-        "&comments=" +
-        comments
-    );
+    xhttp.send(params);
+
     return false;
 }
+
+function displayErrorMessage(message) {
+    document.getElementById("error-msg").style.opacity = 1;
+    document.getElementById("error-msg").innerHTML =
+        "<div class='alert alert-warning error_message'>*" + message + "*</div>";
+}
+
+function clearFormFields() {
+    // Clear form fields after successful submission
+    document.forms["myForm"]["name"].value = "";
+    document.forms["myForm"]["email"].value = "";
+    document.forms["myForm"]["subject"].value = "";
+    document.forms["myForm"]["comments"].value = "";
+}
+
 
 function fadeIn() {
     var fade = document.getElementById("error-msg");
