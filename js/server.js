@@ -88,11 +88,8 @@ app.post("/sign-up", async(req, res) => {
             return res.status(401).json({ error: "Invalid FPT API key" });
         }
 
-        // Hash the password before saving it to the database
-        const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = new User({ username, useraccountname, zaloapi, fptapi, password: hashedPassword, email, premium: false });
-
+        const newUser = new User({ username, useraccountname, zaloapi, fptapi, password, email, premium: false });
         await newUser.save();
 
         newUser.last_used_at = Date.now();
