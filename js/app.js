@@ -140,6 +140,9 @@ window.onload = function loader() {
     }, 350);
 };
 
+// sign up
+
+
 function showPopup(message, isSuccess) {
     var popup = document.createElement("div");
     popup.style.position = "fixed";
@@ -177,67 +180,23 @@ function showPopup(message, isSuccess) {
     }, 3000);
 }
 
-function handleSignUp(event) {
-    // Prevent the default form submission behavior
-    event.preventDefault();
+const handleSignUp = async() => {
+    try {
+        await axios.post("https://projectx-landingpage-production.up.railway.app/sign-up", data, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
 
-    // Retrieve user input
-    const username = document.getElementById("username").value;
-    const zaloapi = document.getElementById("zaloapi").value;
-    const fptapi = document.getElementById("fptapi").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    // Clear previous messages
-    clearMessages();
-
-    // Client-side validation
-    if (!username.trim() || !zaloapi.trim() || !fptapi.trim() || !email.trim() || !password.trim()) {
-        displayErrorMessage("All fields are required");
-        return;
+        showPopup("Thành công", true);
+    } catch (error) {
+        console.log(error);
+        showPopup(error.response.data.message, false);
     }
-
-    // Additional validation logic if needed
-
-    // AJAX request
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                // Successful response
-                const response = JSON.parse(this.responseText);
-                if (response.message) {
-                    showPopup(response.message, true);
-                    // Optionally, you can clear the form fields here
-                    clearFormFields();
-                } else {
-                    showPopup("Error: Invalid response", false);
-                }
-            } else {
-                // Error handling for HTTP status other than 200
-                showPopup("Error: " + this.status, false);
-            }
-        }
-    };
-
-    // Construct the request parameters
-    var params =
-        "username=" + encodeURIComponent(username) +
-        "&zaloapi=" + encodeURIComponent(zaloapi) +
-        "&fptapi=" + encodeURIComponent(fptapi) +
-        "&email=" + encodeURIComponent(email) +
-        "&password=" + encodeURIComponent(password);
-
-    // Send the request
-    xhttp.open("POST", "https://projectx-landingpage-production.up.railway.app/sign-up", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(params);
-}
+};
 
 const signUpButton = document.getElementById("signup-submit-btn");
 signUpButton.addEventListener("click", handleSignUp);
-
-
 
 
 function hideTerms() {
