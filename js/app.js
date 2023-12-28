@@ -140,20 +140,60 @@ window.onload = function loader() {
     }, 350);
 };
 
-const handleSignUp = async() => {
-    try {
-        await axios.post(endpoint + "/sign-up", data, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+function handleSignUp() {
+    // Retrieve user input
+    const username = document.getElementById("username").value;
+    const zaloapi = document.getElementById("zaloapi").value;
+    const fptapi = document.getElementById("fptapi").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-        alert("Thanh cong ");
-    } catch (error) {
-        console.log(error);
-        alert("Có lỗi API");
+    // Clear previous messages
+    clearMessages();
+
+    // Client-side validation
+    if (!username.trim() || !zaloapi.trim() || !fptapi.trim() || !email.trim() || !password.trim()) {
+        displayErrorMessage("All fields are required");
+        return;
     }
-};
+
+    // Additional validation logic if needed
+
+    // AJAX request
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                // Successful response
+                const response = JSON.parse(this.responseText);
+                if (response.message) {
+                    displaySuccessMessage(response.message);
+                    // Optionally, you can clear the form fields here
+                    clearFormFields();
+                } else {
+                    displayErrorMessage("Error: Invalid response");
+                }
+            } else {
+                // Error handling for HTTP status other than 200
+                displayErrorMessage("Error: " + this.status);
+            }
+        }
+    };
+
+    // Construct the request parameters
+    var params =
+        "username=" + encodeURIComponent(username) +
+        "&zaloapi=" + encodeURIComponent(zaloapi) +
+        "&fptapi=" + encodeURIComponent(fptapi) +
+        "&email=" + encodeURIComponent(email) +
+        "&password=" + encodeURIComponent(password);
+
+    // Send the request
+    xhttp.open("POST", "https://projectx-landingpage-production.up.railway.app/sign-up", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+}
+
 
 const signUpButton = document.getElementById("signup-submit-btn");
 signUpButton.addEventListener("click", handleSignUp);
