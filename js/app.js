@@ -180,7 +180,9 @@ function showPopup(message, isSuccess) {
     }, 3000);
 }
 
-const handleSignUp = async() => {
+const handleSignUp = async(event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
+
     try {
         await axios.post("https://projectx-landingpage-production.up.railway.app/sign-up", data, {
             headers: {
@@ -202,8 +204,8 @@ const handleSignUp = async() => {
 };
 
 
-const signUpButton = document.getElementById("signup-submit-btn");
-signUpButton.addEventListener("click", handleSignUp);
+// const signUpButton = document.getElementById("signup-submit-btn");
+// signUpButton.addEventListener("click", handleSignUp);
 
 
 function hideTerms() {
