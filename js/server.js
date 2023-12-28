@@ -29,11 +29,13 @@ const UserSchema = new mongoose.Schema({
     useraccountname: { type: String, default: null },
     zaloapi: String,
     fptapi: String,
+    email: { type: String, unique: true, required: true },
     password: String,
     created_at: { type: Date, default: Date.now },
     last_used_at: { type: Date, default: Date.now },
     premium: { type: Boolean, default: false },
 });
+
 
 UserSchema.pre("save", async function(next) {
     if (!this.isModified("password")) return next();
@@ -59,13 +61,18 @@ app.use(express.static("public"));
 
 app.post("/sign-up", async(req, res) => {
     try {
-        const { username, useraccountname, zaloapi, fptapi, password } = req.body;
+        const { username, useraccountname, zaloapi, fptapi, email, password } = req.body;
 
-        if (!username || useraccountname || !zaloapi || !fptapi || !password) {
+        if (!username || useraccountname || !zaloapi || !fptapi || !email || !password) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
-        const existingUser = await User.findOne({ username });
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ error: "Invalid email format" });
+        }
+
+        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
             return res.status(409).json({ error: "User already exists" });
         }
@@ -78,7 +85,7 @@ app.post("/sign-up", async(req, res) => {
             return res.status(401).json({ error: "Invalid FPT API key" });
         }
 
-        const newUser = new User({ username, zaloapi, fptapi, password, premium: false });
+        const newUser = new User({ username, zaloapi, fptapi, email, password, premium: false });
 
         await newUser.save();
 
