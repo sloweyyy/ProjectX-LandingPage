@@ -144,27 +144,20 @@ const signUpButton = document.getElementById("signup-submit-btn");
 signUpButton.addEventListener("click", handleSignUp);
 
 
-async function handleSignUp() {
-    const username = document.getElementById("username").value;
-    const useraccountname = document.getElementById("useraccountname").value;
-    const zaloapi = document.getElementById("zaloapi").value;
-    const fptapi = document.getElementById("fptapi").value;
-    const password = document.getElementById("password").value;
-    const email = document.getElementById("email").value;
+const handleSignUp = async() => {
+    try {
+        await axios.post(endpoint + "/sign-up", data, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
 
-
-    const response = await fetch("https://your-api-endpoint.com/sign-up", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, useraccountname, zaloapi, fptapi, password, email }),
-    });
-
-    const responseData = await response.json();
-
-    console.log(responseData);
-}
+        alert("Thanh cong ");
+    } catch (error) {
+        console.log(error);
+        alert("Có lỗi API");
+    }
+};
 
 function hideTerms() {
     document.getElementById('termcondition').style.display = 'none';
