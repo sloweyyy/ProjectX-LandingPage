@@ -140,7 +140,47 @@ window.onload = function loader() {
     }, 350);
 };
 
-function handleSignUp() {
+function showPopup(message, isSuccess) {
+    var popup = document.createElement("div");
+    popup.style.position = "fixed";
+    popup.style.width = "200px";
+    popup.style.height = "120px";
+    popup.style.backgroundColor = isSuccess ? "#d4edda" : "#f8d7da";
+    popup.style.color = isSuccess ? "#155724" : "#721c24";
+    popup.style.padding = "20px";
+    popup.style.border = "solid 1px";
+    popup.style.borderColor = isSuccess ? "#c3e6cb" : "#f5c6cb";
+    popup.style.borderRadius = "5px";
+    popup.style.zIndex = "1000";
+    popup.style.left = "50%";
+    popup.style.top = "50%";
+    popup.style.transform = "translate(-50%, -50%)";
+    popup.style.textAlign = "center";
+
+    var image = document.createElement("img");
+    image.src = isSuccess ? "images/ui/check.png" : "images/ui/remove.png";
+    image.style.width = "50px";
+    image.style.height = "50px";
+    image.style.marginBottom = "10px";
+    popup.appendChild(image);
+
+    var text = document.createElement("p");
+    text.style.marginTop = "0";
+    text.appendChild(document.createTextNode(message));
+    popup.appendChild(text);
+
+    document.body.appendChild(popup);
+
+    // Automatically remove the popup after 3 seconds
+    setTimeout(function() {
+        document.body.removeChild(popup);
+    }, 3000);
+}
+
+function handleSignUp(event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
     // Retrieve user input
     const username = document.getElementById("username").value;
     const zaloapi = document.getElementById("zaloapi").value;
@@ -167,15 +207,15 @@ function handleSignUp() {
                 // Successful response
                 const response = JSON.parse(this.responseText);
                 if (response.message) {
-                    displaySuccessMessage(response.message);
+                    showPopup(response.message, true);
                     // Optionally, you can clear the form fields here
                     clearFormFields();
                 } else {
-                    displayErrorMessage("Error: Invalid response");
+                    showPopup("Error: Invalid response", false);
                 }
             } else {
                 // Error handling for HTTP status other than 200
-                displayErrorMessage("Error: " + this.status);
+                showPopup("Error: " + this.status, false);
             }
         }
     };
@@ -194,9 +234,9 @@ function handleSignUp() {
     xhttp.send(params);
 }
 
-
 const signUpButton = document.getElementById("signup-submit-btn");
 signUpButton.addEventListener("click", handleSignUp);
+
 
 
 
