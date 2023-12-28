@@ -27,6 +27,7 @@ mongoose.connect(
 const UserSchema = new mongoose.Schema({
     username: String,
     useraccountname: { type: String, default: null },
+    email: { type: String, required: true, unique: true },
     zaloapi: String,
     fptapi: String,
     password: String,
@@ -34,6 +35,7 @@ const UserSchema = new mongoose.Schema({
     last_used_at: { type: Date, default: Date.now },
     premium: { type: Boolean, default: false },
 });
+
 
 UserSchema.pre("save", async function(next) {
     if (!this.isModified("password")) return next();
@@ -57,15 +59,23 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static("public"));
 
+
+
+
 app.post("/sign-up", async(req, res) => {
     try {
-        const { username, useraccountname, zaloapi, fptapi, password } = req.body;
+        const { username, useraccountname, zaloapi, fptapi, password, email } = req.body;
 
-        if (!username || useraccountname || !zaloapi || !fptapi || !password) {
+        if (!username || !zaloapi || !fptapi || !password || !email) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
-        const existingUser = await User.findOne({ username });
+        // Check if the password meets the required criteria
+        if (!isValidPassword(password)) {
+            return res.status(400).json({ error: "Invalid password. Password must be at least 8 characters long." });
+        }
+
+        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
             return res.status(409).json({ error: "User already exists" });
         }
@@ -78,7 +88,10 @@ app.post("/sign-up", async(req, res) => {
             return res.status(401).json({ error: "Invalid FPT API key" });
         }
 
-        const newUser = new User({ username, zaloapi, fptapi, password, premium: false });
+        // Hash the password before saving it to the database
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new User({ username, useraccountname, zaloapi, fptapi, password: hashedPassword, email, premium: false });
 
         await newUser.save();
 
@@ -91,6 +104,14 @@ app.post("/sign-up", async(req, res) => {
         res.status(500).json({ error: "Registration failed" });
     }
 });
+
+// Function to validate the password
+function isValidPassword(password) {
+    // Password must be at least 8 characters
+    return password.length >= 8;
+}
+
+
 
 const prompt = "Hello!"; // Replace with your prompt if any. This prompt is to tell the bot about the context or the role it must take
 
@@ -178,10 +199,9 @@ app.post('/send-message', async(req, res) => {
     try {
         const { name, email, subject, comment } = req.body;
 
-        // Create client instance for auth
         const client = new google.auth.JWT(client_email, undefined, private_key, ['https://www.googleapis.com/auth/spreadsheets']);
 
-        const range = 'A2:E2'; // Replace this with the appropriate range for your spreadsheet
+        const range = 'A2:E2';
         const googleSheets = google.sheets({ version: 'v4', auth: client });
         const now = dayjs().format('DD/MM/YYYY HH:mm:ss');
 
