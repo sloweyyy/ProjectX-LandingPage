@@ -140,10 +140,6 @@ window.onload = function loader() {
     }, 350);
 };
 
-const signUpButton = document.getElementById("signup-submit-btn");
-signUpButton.addEventListener("click", handleSignUp);
-
-
 const handleSignUp = async() => {
     try {
         await axios.post(endpoint + "/sign-up", data, {
@@ -158,6 +154,11 @@ const handleSignUp = async() => {
         alert("Có lỗi API");
     }
 };
+
+const signUpButton = document.getElementById("signup-submit-btn");
+signUpButton.addEventListener("click", handleSignUp);
+
+
 
 function hideTerms() {
     document.getElementById('termcondition').style.display = 'none';
