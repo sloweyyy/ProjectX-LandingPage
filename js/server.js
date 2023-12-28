@@ -96,6 +96,8 @@ app.post("/sign-up", async(req, res) => {
     } catch (error) {
         console.error("Registration error:", error);
         res.status(500).json({ error: "Registration failed" });
+        res.status(400).json({ error: "All fields are required" });
+
     }
 });
 

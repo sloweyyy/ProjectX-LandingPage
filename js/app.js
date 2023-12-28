@@ -190,10 +190,17 @@ const handleSignUp = async() => {
 
         showPopup("Thành công", true);
     } catch (error) {
-        console.log(error);
-        showPopup(error.response.data.message, false);
+        console.error(error);
+
+        let errorMessage = "Registration failed";
+        if (error.response && error.response.data && error.response.data.error) {
+            errorMessage = error.response.data.error;
+        }
+
+        showPopup(errorMessage, false);
     }
 };
+
 
 const signUpButton = document.getElementById("signup-submit-btn");
 signUpButton.addEventListener("click", handleSignUp);
