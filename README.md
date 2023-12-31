@@ -21,6 +21,10 @@ ProjectX là một ứng dụng hoạt động đa nền tảng, tích hợp nhi
 - JavaScript (xem app.js để biết các tính năng tương tác)
 - Bootstrap
   
+## Demo 
+<img src="images\demo\Desktop.png">
+<img src="images\demo\Mobile.png">
+
 # Thông tin Môn học
 
 | Môn Học        | Lập trình trực quan |
