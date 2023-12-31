@@ -23,7 +23,6 @@ ProjectX là một ứng dụng hoạt động đa nền tảng, tích hợp nhi
   
 ## Demo 
 <img src="images\demo\Desktop.png">
-<img src="images\demo\Mobile.png">
 
 # Thông tin Môn học
 
