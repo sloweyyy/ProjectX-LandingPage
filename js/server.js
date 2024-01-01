@@ -192,7 +192,8 @@ app.post('/send-message', async(req, res) => {
 
         const range = 'A2:E2'; // Replace this with the appropriate range for your spreadsheet
         const googleSheets = google.sheets({ version: 'v4', auth: client });
-        const now = dayjs().utcOffset(7).format('DD/MM/YYYY HH:mm:ss');
+        const now = dayjs().format('DD/MM/YYYY HH:mm:ss');
+
         await googleSheets.spreadsheets.values.append({
             auth: client,
             spreadsheetId,
