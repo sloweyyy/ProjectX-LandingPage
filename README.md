@@ -4,39 +4,25 @@
     </a>
 </div>
 
-# ProjectX Landing Page
+# ỨNG DỤNG ĐA CHỨC NĂNG CHO NGƯỜI VIỆT - PROJECTX
 
-Welcome to the repository for ProjectX's Landing Page! This landing page is part of a visual programming course project at the University of Information Technology, Vietnam National University, Ho Chi Minh City.
+ProjectX là một ứng dụng hoạt động đa nền tảng, tích hợp nhiều công cụ tiện ích, đa dạng và hiệu quả
+## Tính Năng
 
-## Features
+- Responsive Design: Đảm bảo trải nghiệm liền mạch trên nhiều thiết bị và kích thước màn hình khác nhau.
+- Modern UI: Giao diện người dùng sáng tạo với bố cục trực quan, tuân theo những xu hướng thiết kế web mới nhất.
+- Interactive Elements: Trang bao gồm các yếu tố tương tác để tăng cường sự tương tác của người dùng, được triển khai trong JavaScript.
+- Contact Form: Một biểu mẫu liên hệ hoạt động để người truy cập dễ dàng liên lạc.
 
-- Responsive Design: Ensures a seamless experience across various devices and screen sizes.
-- Modern UI: Engaging user interface with an intuitive layout, following the latest web design trends.
-- Interactive Elements: The page includes interactive elements for better user engagement, implemented in JavaScript.
-- Contact Form: A functional contact form for visitors to easily get in touch.
-
-## Technologies Used
+## Công nghệ
 
 - HTML5
-- CSS3 (with style.css for custom styles)
-- JavaScript (see app.js for interactive features)
-- C#
-- Visual Studio
+- CSS3 (với style.css để tùy chỉnh giao diện)
+- JavaScript (xem app.js để biết các tính năng tương tác)
 - Bootstrap
-
-## Setup and Installation
-
-1. Clone the repository to your local machine.
-2. Open index.html in a web browser to view the landing page.
-3. Modify the HTML, CSS, JavaScript, and C# files as needed for your customization.
-
-## Contributing
-
-Contributions to improve the landing page are welcome. Please feel free to fork the repository and submit pull requests.
-
-## License
-
-This project is licensed under the MIT License.
+  
+## Demo 
+<img src="images\demo\Desktop.png">
 
 # Thông tin Môn học
 

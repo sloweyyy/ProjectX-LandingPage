@@ -1,12 +1,21 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
-const axios = require("axios");
-const cors = require("cors");
+const { z } = require('zod');
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const { google } = require('googleapis');
+const { client_email, private_key } = require('../secret.json');
+const bcrypt = require('bcrypt');
+const axios = require('axios');
+const cors = require('cors');
+const dayjs = require('dayjs');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 const app = express();
 const port = process.env.PORT || 5500;
+const router = express.Router();
 
+const genAI = new GoogleGenerativeAI(atob('QUl6YVN5RFR4dkpFZEhNRzVhOGI5ejhTQ3V1czRqZ25MOTFfeWk0'));
+const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+app.use(router);
 
 mongoose.connect(
     "mongodb+srv://slowey:tlvptlvp@projectx.3vv2dfv.mongodb.net/ProjectX", {
@@ -17,12 +26,16 @@ mongoose.connect(
 
 const UserSchema = new mongoose.Schema({
     username: String,
+    useraccountname: { type: String, default: null },
     zaloapi: String,
     fptapi: String,
+    email: { type: String, unique: true, required: true },
     password: String,
     created_at: { type: Date, default: Date.now },
     last_used_at: { type: Date, default: Date.now },
+    premium: { type: Boolean, default: false },
 });
+
 
 UserSchema.pre("save", async function(next) {
     if (!this.isModified("password")) return next();
@@ -41,47 +54,41 @@ UserSchema.methods.correctPassword = async function(
 
 const User = mongoose.model("Users", UserSchema);
 
-// Middleware setup
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-// Serve static files (CSS, JS, etc.)
 app.use(express.static("public"));
 
-// Define a route for handling the registration form submission
-// Define a route for handling the registration form submission
 app.post("/sign-up", async(req, res) => {
     try {
-        const { username, zaloapi, fptapi, password } = req.body;
+        const { username, useraccountname, zaloapi, fptapi, email, password } = req.body;
 
-        // Check for missing fields
-        if (!username || !zaloapi || !fptapi || !password) {
+        if (!username || useraccountname || !zaloapi || !fptapi || !email || !password) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
-        // Check if user already exists
-        const existingUser = await User.findOne({ username });
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ error: "Invalid email format" });
+        }
+
+        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
             return res.status(409).json({ error: "User already exists" });
         }
 
-        // Validate Zalo API key
         if (!(await isValidZaloApiKey(zaloapi))) {
             return res.status(401).json({ error: "Invalid Zalo API key" });
         }
 
-        // Validate FPT API key
         if (!(await isValidFptApiKey(fptapi))) {
             return res.status(401).json({ error: "Invalid FPT API key" });
         }
 
-        // Create a new user document
-        const newUser = new User({ username, zaloapi, fptapi, password });
+        const newUser = new User({ username, zaloapi, fptapi, email, password, premium: false });
 
-        // Save the user to the database
         await newUser.save();
 
-        // Update last_used_at field
         newUser.last_used_at = Date.now();
         await newUser.save();
 
@@ -89,8 +96,42 @@ app.post("/sign-up", async(req, res) => {
     } catch (error) {
         console.error("Registration error:", error);
         res.status(500).json({ error: "Registration failed" });
+        res.status(400).json({ error: "All fields are required" });
+
     }
 });
+
+const prompt = "Hello!"; // Replace with your prompt if any. This prompt is to tell the bot about the context or the role it must take
+
+app.post('/gemini', async(req, res) => {
+    try {
+        const { question } = req.body;
+
+        const chat = model.startChat({
+            history: [{
+                    role: 'user',
+                    parts: prompt,
+                },
+                {
+                    role: 'model',
+                    parts: 'Hello, how can I help you?',
+                },
+            ],
+            generationConfig: {
+                maxOutputTokens: 5000,
+            },
+        });
+
+        const result = await chat.sendMessage(question);
+        const response = await result.response;
+        const text = response.text();
+
+        res.json({ response: text });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 async function isValidFptApiKey(key) {
     try {
@@ -112,10 +153,6 @@ async function isValidFptApiKey(key) {
     }
 }
 
-
-
-
-// Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
@@ -142,9 +179,50 @@ async function isValidZaloApiKey(key) {
 
 
 
+const spreadsheetId = '1HA42o3I_RfxeHLao2CG995kIuU4cdY-sGoK6K6316n4';
+
+
+
+app.post('/send-message', async(req, res) => {
+    try {
+        const { name, email, subject, comment } = req.body;
+
+        // Create client instance for auth
+        const client = new google.auth.JWT(client_email, undefined, private_key, ['https://www.googleapis.com/auth/spreadsheets']);
+
+        const range = 'A2:E2'; // Replace this with the appropriate range for your spreadsheet
+        const googleSheets = google.sheets({ version: 'v4', auth: client });
+        const now = dayjs().utcOffset(7).format('DD/MM/YYYY HH:mm:ss');
+        await googleSheets.spreadsheets.values.append({
+            auth: client,
+            spreadsheetId,
+            range,
+            valueInputOption: 'USER_ENTERED',
+            resource: {
+                values: [
+                    [now, name, email, subject, comment]
+                ],
+            },
+        });
+
+        res.json({ message: 'Message sent successfully' });
+    } catch (error) {
+        console.error('Error handling the /send-message endpoint:', error);
+
+        if (error instanceof z.ZodError) {
+            res.status(400).json({ error: error.errors });
+        } else {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+});
+
+
+
 const corsOptions = {
-    origin: 'https://slowey-project-x.vercel.app/', // Thay thế bằng domain của bạn
-    optionsSuccessStatus: 200
+    origin: "*", // Allow requests from any origin during development
+    optionsSuccessStatus: 200,
 };
+
 
 app.use(cors(corsOptions));

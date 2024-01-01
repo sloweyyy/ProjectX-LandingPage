@@ -35,57 +35,84 @@ function validateForm() {
     var email = document.forms["myForm"]["email"].value;
     var subject = document.forms["myForm"]["subject"].value;
     var comments = document.forms["myForm"]["comments"].value;
-    document.getElementById("error-msg").style.opacity = 0;
-    document.getElementById("error-msg").innerHTML = "";
-    if (name == "" || name == null) {
-        document.getElementById("error-msg").innerHTML =
-            "<div class='alert alert-warning error_message'>*Please enter a Name*</div>";
-        fadeIn();
+
+    // Clear previous messages
+    clearMessages();
+
+    // Client-side validation
+    if (name.trim() === "") {
+        displayErrorMessage("Please enter a Name");
         return false;
     }
-    if (email == "" || email == null) {
-        document.getElementById("error-msg").innerHTML =
-            "<div class='alert alert-warning error_message'>*Please enter a Email*</div>";
-        fadeIn();
+    if (email.trim() === "") {
+        displayErrorMessage("Please enter an Email");
         return false;
     }
-    if (subject == "" || subject == null) {
-        document.getElementById("error-msg").innerHTML =
-            "<div class='alert alert-warning error_message'>*Please enter a Subject*</div>";
-        fadeIn();
+    if (subject.trim() === "") {
+        displayErrorMessage("Please enter a Subject");
         return false;
     }
-    if (comments == "" || comments == null) {
-        document.getElementById("error-msg").innerHTML =
-            "<div class='alert alert-warning error_message'>*Please enter a Comments*</div>";
-        fadeIn();
+    if (comments.trim() === "") {
+        displayErrorMessage("Please enter Comments");
         return false;
     }
 
+    // AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("simple-msg").innerHTML = this.responseText;
-            document.forms["myForm"]["name"].value = "";
-            document.forms["myForm"]["email"].value = "";
-            document.forms["myForm"]["subject"].value = "";
-            document.forms["myForm"]["comments"].value = "";
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                // Successful response
+                displaySuccessMessage("Message sent successfully");
+                // Optionally, you can clear the form fields here
+                clearFormFields();
+            } else {
+                // Error handling for HTTP status other than 200
+                displayErrorMessage("Error: " + this.status);
+            }
         }
     };
-    xhttp.open("POST", "php/contact.php", true);
+
+    // Construct the request parameters
+    var params =
+        "name=" + encodeURIComponent(name) +
+        "&email=" + encodeURIComponent(email) +
+        "&subject=" + encodeURIComponent(subject) +
+        "&comments=" + encodeURIComponent(comments);
+
+    // Send the request
+    xhttp.open("POST", "https://projectx-landingpage-production.up.railway.app/send-message", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(
-        "name=" +
-        name +
-        "&email=" +
-        email +
-        "&subject=" +
-        subject +
-        "&comments=" +
-        comments
-    );
+    xhttp.send(params);
+
     return false;
 }
+
+function displayErrorMessage(message) {
+    var errorMsgElement = document.getElementById("error-msg");
+    errorMsgElement.style.opacity = 1;
+    errorMsgElement.innerHTML = "<div class='alert alert-danger error-message'>" + message + "</div>";
+}
+
+function displaySuccessMessage(message) {
+    var successMsgElement = document.getElementById("simple-msg");
+    successMsgElement.innerHTML = "<div class='alert alert-success success-message'>" + message + "</div>";
+}
+
+function clearMessages() {
+    document.getElementById("error-msg").style.opacity = 0;
+    document.getElementById("error-msg").innerHTML = "";
+    document.getElementById("simple-msg").innerHTML = "";
+}
+
+function clearFormFields() {
+    // Clear form fields after successful submission
+    document.forms["myForm"]["name"].value = "";
+    document.forms["myForm"]["email"].value = "";
+    document.forms["myForm"]["subject"].value = "";
+    document.forms["myForm"]["comments"].value = "";
+}
+
 
 function fadeIn() {
     var fade = document.getElementById("error-msg");
@@ -113,10 +140,72 @@ window.onload = function loader() {
     }, 350);
 };
 
+// sign up
 
-const signUpButton = document.getElementById("signup-submit-btn");
-signUpButton.addEventListener("click", handleSignUp);
 
+function showPopup(message, isSuccess) {
+    var popup = document.createElement("div");
+    popup.style.position = "fixed";
+    popup.style.width = "200px";
+    popup.style.height = "120px";
+    popup.style.backgroundColor = isSuccess ? "#d4edda" : "#f8d7da";
+    popup.style.color = isSuccess ? "#155724" : "#721c24";
+    popup.style.padding = "20px";
+    popup.style.border = "solid 1px";
+    popup.style.borderColor = isSuccess ? "#c3e6cb" : "#f5c6cb";
+    popup.style.borderRadius = "5px";
+    popup.style.zIndex = "1000";
+    popup.style.left = "50%";
+    popup.style.top = "50%";
+    popup.style.transform = "translate(-50%, -50%)";
+    popup.style.textAlign = "center";
+
+    var image = document.createElement("img");
+    image.src = isSuccess ? "images/ui/check.png" : "images/ui/remove.png";
+    image.style.width = "50px";
+    image.style.height = "50px";
+    image.style.marginBottom = "10px";
+    popup.appendChild(image);
+
+    var text = document.createElement("p");
+    text.style.marginTop = "0";
+    text.appendChild(document.createTextNode(message));
+    popup.appendChild(text);
+
+    document.body.appendChild(popup);
+
+    // Automatically remove the popup after 3 seconds
+    setTimeout(function() {
+        document.body.removeChild(popup);
+    }, 3000);
+}
+
+const handleSignUp = async(event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    try {
+        await axios.post("https://projectx-landingpage-production.up.railway.app/sign-up", data, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        showPopup("Thành công", true);
+    } catch (error) {
+        console.error(error);
+
+        let errorMessage = "Registration failed";
+        if (error.response && error.response.data && error.response.data.error) {
+            errorMessage = error.response.data.error;
+        }
+
+        showPopup(errorMessage, false);
+    }
+};
+
+
+// const signUpButton = document.getElementById("signup-submit-btn");
+// signUpButton.addEventListener("click", handleSignUp);
 
 
 function hideTerms() {

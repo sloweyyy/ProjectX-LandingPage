@@ -44,10 +44,14 @@
                                 </p>
                             </div>
                             <div class="p-3">
-                                <form novalidate="" action="https://projectx-landingpage-production.up.railway.app/sign-up" method="post" class="av-invalid">
+                                <form action="https://projectx-landingpage-production.up.railway.app/sign-up" method="post" class="av-invalid">
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
                                         <input name="username" required="" placeholder="Username" id="username" type="text" class="form-control" value="" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input name="email" required="" placeholder="Enter your email" id="email" type="email" class="form-control" value="" />
                                     </div>
                                     <div class="mb-3">
                                         <label for="zaloapi" class="form-label">ZaloAI API Key</label>
@@ -74,7 +78,8 @@
                                         </button>
                                     </div>
                                 </form>
-                                <div id="alert-container"></div>
+
+                                <div id="error-msg"></div>
 
                                 <div id="termcondition">
                                     <div class="popup-container">
@@ -118,12 +123,32 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+    <script>
+        function showTermsAndConditions() {
+            var termconditionBackground = document.getElementById("termcondition");
+            termconditionBackground.style.display = "block";
+            document.body.classList.add("termcondition-open");
+        };
+        document.querySelector(".close-button").addEventListener("click", hideTermsAndConditions);
+
+        function hideTermsAndConditions(event) {
+            event.stopPropagation();
+            var termconditionBackground = document.getElementById("termcondition");
+            termconditionBackground.style.display = "none";
+            document.body.classList.remove("termcondition-open");
+        }
+    </script>
     <script>
         $(document).ready(function() {
             $("#signup-submit-btn").click(function(event) {
                 event.preventDefault();
                 const formData = {
                     username: $("#username").val(),
+                    email: $("#email").val(),
                     zaloapi: $("#zaloapi").val(),
                     fptapi: $("#fptapi").val(),
                     password: $("#password").val()
@@ -179,25 +204,6 @@
             }
         });
     </script>
-
-
-
-    <script>
-        function showTermsAndConditions() {
-            var termconditionBackground = document.getElementById("termcondition");
-            termconditionBackground.style.display = "block";
-            document.body.classList.add("termcondition-open");
-        };
-        document.querySelector(".close-button").addEventListener("click", hideTermsAndConditions);
-
-        function hideTermsAndConditions(event) {
-            event.stopPropagation();
-            var termconditionBackground = document.getElementById("termcondition");
-            termconditionBackground.style.display = "none";
-            document.body.classList.remove("termcondition-open");
-        }
-    </script>
-    <!-- App Js -->
     <script src="js/app.js"></script>
 </body>
 
