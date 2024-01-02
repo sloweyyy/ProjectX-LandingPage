@@ -185,7 +185,7 @@ const spreadsheetId = '1HA42o3I_RfxeHLao2CG995kIuU4cdY-sGoK6K6316n4';
 
 app.post('/send-message', async(req, res) => {
     try {
-        const { name, email, subject, comment } = req.body;
+        const { name, email, subject, comments } = req.body;
 
         // Create client instance for auth
         const client = new google.auth.JWT(client_email, undefined, private_key, ['https://www.googleapis.com/auth/spreadsheets']);
@@ -201,7 +201,7 @@ app.post('/send-message', async(req, res) => {
             valueInputOption: 'USER_ENTERED',
             resource: {
                 values: [
-                    [now, name, email, subject, comment]
+                    [now, name, email, subject, comments]
                 ],
             },
         });
